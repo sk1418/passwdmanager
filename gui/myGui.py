@@ -158,7 +158,7 @@ CONFIRM_MOVETO_TRASH = """Are you sure to move the account [%s]?"""
 CONFIRM_COMPLETE_REMOVE = """Are you sure to PERMANENTLY DELETE the account [%s]?"""
 CONFIRM_EMPTY_TRASH = """Are you sure to empty the trash?"""
 CONFIRM_REMOVE_TAG = """Are you sure to remove the tag [%s]?"""
-CONFIRM_REMOVE_USEDTAG = 'The tag [%s] is still in use. The operation will also remove the Tag from related account(s). Continue to remove Tag?'
+CONFIRM_REMOVE_USEDTAG = """Removing tag [%s] will not remove related accounts. Continue to remove Tag?"""
 
 ##################################
 #Error messages
