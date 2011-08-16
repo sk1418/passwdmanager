@@ -1,0 +1,59 @@
+Passwd Manager README FILE
+
+Project Home
+------------------------------------------------
+http://code.google.com/p/passwdmanager/
+
+
+Requirement to run passwd manager:
+------------------------------------------------
+-python 2.5.*
+-wxPython 2.8
+-pycrypto 
+
+
+
+Command to start application
+------------------------------------------------
+$name@Host:APPL_HOME_DIR/python passwdManager.py
+
+
+
+DEFAULT MASTER PASSWORD
+------------------------------------------------
+"password" (without quotation marks)
+
+
+Upgrade
+------------------------------------------------
+1 Exit the application
+2 Backup your data directory. (<appHome>/data)
+3 Download and extract the new version
+4 overwrite the data directory with your backup
+5 start the application, check the version number via Help->About
+
+
+
+change logs
+------------------------------------------------
+v1.0.4
+* Feature: Password Generator
+* Tag removing: now tag still in used can also be removed.
+* Search box :  pressing <Enter> key in search textbox will trigger the search 
+
+v1.0.3
+* Feature:Update notification (popup & statusbar)
+* Feature:Update checking menu item
+* Current chosen tag will be selected automatically in Add New Account dialog
+* BugFix: [WINDOWS] GUI dialog/button size  
+
+
+v1.0.2
+* BugFix: [WINDOWS] UTF-8 encoding problem when printing the tag names
+
+v1.0.1
+* BugFix: [WINDOWS] click 'Exit' in Login Dialog, application exits with error message.
+* BugFix: [ALL] Edit Account Dialog, error occurs when doing the user input validation
+
+v1.0.0
+1st release
