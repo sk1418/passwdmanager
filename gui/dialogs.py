@@ -30,13 +30,14 @@ class LoginDialog(wx.Dialog):
     
         item3 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.okBt = wx.Button( self, wx.ID_OK, "OK",  wx.DefaultPosition, wx.DefaultSize, 0 )
-        item3.Add( self.okBt, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
-    
-        item3.Add( [ 20, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         self.cancelBt = wx.Button( self, wx.ID_CANCEL, "Exit",  wx.DefaultPosition,wx.DefaultSize, 0 )
         item3.Add( self.cancelBt, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+        item3.Add( [ 20, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+    
+        self.okBt = wx.Button( self, wx.ID_OK, "OK",  wx.DefaultPosition, wx.DefaultSize, 0 )
+        item3.Add( self.okBt, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item0.Add( item3, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
         
@@ -67,18 +68,19 @@ class LoginDialog(wx.Dialog):
             else :
                 str =  'Please Enter The Master Password: ( %d tries left )' % (RETRY)
             self.lbl.SetLabel(str)
-            
-            
-        
+
 
     def authenticate(self):
         mService = MasterService()
+
         val = self.ShowModal()
         if val == wx.ID_OK:
-            pwd = self.pwdBox.GetValue()
+            pwd = self.pwdBox.GetValue()#def encryptFile(fullFileName, key, overwrite=False):
+
             if not(mService.authentication(pwd)):
                 myGui.showErrorDialog(myGui.ERR_LOGIN)
                 global RETRY
+
                 if RETRY > 1:
                     RETRY=RETRY-1
                     self.__setLabelText()
@@ -128,36 +130,36 @@ class AccountDetailDialog(wx.Dialog):
         item4 = wx.StaticText( self, ID_TEXT, "Title", wx.DefaultPosition, wx.DefaultSize, 0 )
         item3.Add( item4, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item5 = wx.TextCtrl( self, titleId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
+        item5 = wx.TextCtrl( self, titleId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item5, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item6 = wx.StaticText( self, ID_TEXT, "Account", wx.DefaultPosition, wx.DefaultSize, 0 )
         item3.Add( item6, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item7 = wx.TextCtrl( self, usernameId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
+        item7 = wx.TextCtrl( self, usernameId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item7, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item8 = wx.StaticText( self, ID_TEXT, "Tags", wx.DefaultPosition, wx.DefaultSize, 0 )
         item3.Add( item8, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item9 = wx.TextCtrl( self, tagId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
+        item9 = wx.TextCtrl( self, tagId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item9, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item10 = wx.StaticText( self, ID_TEXT, "Created time", wx.DefaultPosition, wx.DefaultSize, 0 )
         item3.Add( item10, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item11 = wx.TextCtrl( self, createId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
+        item11 = wx.TextCtrl( self, createId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item11, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item12 = wx.StaticText( self, ID_TEXT, "Last update at", wx.DefaultPosition, wx.DefaultSize, 0 )
         item3.Add( item12, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item13 = wx.TextCtrl( self, updateId, "", wx.DefaultPosition,myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
+        item13 = wx.TextCtrl( self, updateId, "", wx.DefaultPosition,myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item13, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
     
         item16 = wx.StaticText( self, ID_TEXT, "Description", wx.DefaultPosition, wx.DefaultSize, 0)
-        item3.Add( item16, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+        item3.Add( item16, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
     
         item17 = wx.TextCtrl( self, descriptionId, "", wx.DefaultPosition, myGui.SIZE_MULTILINE_TEXT, wx.TE_MULTILINE|wx.TE_READONLY)
         item3.Add( item17, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
@@ -166,7 +168,7 @@ class AccountDetailDialog(wx.Dialog):
         item3.Add( item18, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
 #        item19 = wx.StaticText( self, passwordId, "", wx.DefaultPosition, wx.DefaultSize, 0 )
-        item19 = wx.TextCtrl( self, passwordId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
+        item19 = wx.TextCtrl( self, passwordId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item19, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item1.Add( item3, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
@@ -270,28 +272,28 @@ class EditAccountDialog(wx.Dialog):
         item5 = wx.StaticText( self, -1, "Title", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item5, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item6 = wx.TextCtrl( self, titleId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, 0 )
-        item4.Add( item6, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+        item6 = wx.TextCtrl( self, titleId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, 0 )
+        item4.Add( item6, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
         item7 = wx.StaticText( self, -1, "Description", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item7, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
     
         item8 = wx.TextCtrl( self, descriptionId, "", wx.DefaultPosition, myGui.SIZE_MULTILINE_TEXT, wx.TE_MULTILINE )
-        item4.Add( item8, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+        item4.Add( item8, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
         item9 = wx.StaticText( self, -1, "Account", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item9, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item10 = wx.TextCtrl( self, usernameId, "", wx.DefaultPosition,myGui.SIZE_NORMAL_TEXT, 0 )
-        item4.Add( item10, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+        item10 = wx.TextCtrl( self, usernameId, "", wx.DefaultPosition,myGui.SIZE_DETAIL_TEXT, 0 )
+        item4.Add( item10, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
         item11 = wx.StaticText( self, -1, "(*) Password", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item11, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item12 = wx.TextCtrl( self, passwordId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, 0 )
-        item4.Add( item12, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+        item12 = wx.TextCtrl( self, passwordId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, 0 )
+        item4.Add( item12, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
-        item2.Add( item4, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+        item2.Add( item4, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
         item13 = wx.StaticText( self, -1, 
             "(*) Leave the password empty\n"
@@ -315,13 +317,14 @@ class EditAccountDialog(wx.Dialog):
     
         item17 = wx.BoxSizer( wx.HORIZONTAL )
         
-        item18 = wx.Button( self, wx.ID_OK, "Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-        item17.Add( item18, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
-    
-        item17.Add( [ 50, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item19 = wx.Button( self, wx.ID_CANCEL, "Cacnel", wx.DefaultPosition, wx.DefaultSize, 0 )
         item17.Add( item19, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+
+        item17.Add( [ 50, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+    
+        item18 = wx.Button( self, wx.ID_OK, "Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item17.Add( item18, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
     
         item0.Add( item17, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
         
@@ -433,7 +436,7 @@ class NewPwdDialog(wx.Dialog):
         item5 = wx.StaticText( self, titleLbl, "Title", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item5, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item6 = wx.TextCtrl( self, titleValue, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, 0 )
+        item6 = wx.TextCtrl( self, titleValue, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, 0 )
         item4.Add( item6, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item7 = wx.StaticText( self, descriptionLbl, "Description", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -445,13 +448,13 @@ class NewPwdDialog(wx.Dialog):
         item9 = wx.StaticText( self, accountLbl, "Account", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item9, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item10 = wx.TextCtrl( self, accountValue, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, 0 )
+        item10 = wx.TextCtrl( self, accountValue, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, 0 )
         item4.Add( item10, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item11 = wx.StaticText( self, pwdLbl, "(*) Password", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item11, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item12 = wx.TextCtrl( self, pwdValue, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, 0 )
+        item12 = wx.TextCtrl( self, pwdValue, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, 0 )
         item4.Add( item12, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item2.Add( item4, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
@@ -473,13 +476,13 @@ class NewPwdDialog(wx.Dialog):
     
         item17 = wx.BoxSizer( wx.HORIZONTAL )
         
-        item18 = wx.Button( self, wx.ID_OK, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-        item17.Add( item18, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+        item19 = wx.Button( self, wx.ID_CANCEL, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item17.Add( item19, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
     
         item17.Add( [ 60, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
-        item19 = wx.Button( self, wx.ID_CANCEL, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-        item17.Add( item19, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+        item18 = wx.Button( self, wx.ID_OK, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item17.Add( item18, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
     
         item0.Add( item17, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
         
@@ -588,13 +591,14 @@ class ChgRootPwdDialog(wx.Dialog):
     
         item10 = wx.BoxSizer( wx.HORIZONTAL )
         
-        item11 = wx.Button( self, wx.ID_OK, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-        item10.Add( item11, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
-    
-        item10.Add( [ 20, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item12 = wx.Button( self, wx.ID_CANCEL, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         item12.SetDefault()
+
+        item10.Add( [ 20, 20 ] , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+    
+        item11 = wx.Button( self, wx.ID_OK, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item10.Add( item11, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
         item10.Add( item12, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item0.Add( item10, 0, wx.ALIGN_CENTER|wx.ALL, 5 )

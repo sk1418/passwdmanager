@@ -1,4 +1,3 @@
-#!/usr/bin/python
 '''
 Created on Mar 24, 2009
 
@@ -63,7 +62,7 @@ ICON_MENU_PWDGEN =ICON_ROOT + 'pwdgen16.png'
 # GUI size/position properties
 ##################################
 #Application window size,position
-MAIN_WINDOW_SIZE=(1000,600)
+MAIN_WINDOW_SIZE=(1100,700)
 MAIN_WINDOW_POSITION=(120,120)
 
 # Button
@@ -72,18 +71,21 @@ BUTTON_SIZE= wx.DefaultSize
 
 # Long Textbox
 SIZE_LONG_TEXT=(300,28)
+
 SIZE_NORMAL_TEXT=(200,28)
-SIZE_MULTILINE_TEXT=(200,64)
+SIZE_MULTILINE_TEXT=(400,200)
+# textbox in create/edit/detail dialog. keeping same length with multilineTextBox
+SIZE_DETAIL_TEXT= (400,28) 
 
 
 
 # Dialog
-SIZE_DIALOG_LOGIN = (360, 130)
-SIZE_DIALOG_NEWACCOUNT = (600, 340)
-SIZE_DIALOG_EDITACCOUNT = (600, 380)
-SIZE_DIALOG_ACCOUNTDETAIL = (450, 450)
+SIZE_DIALOG_LOGIN = (400, 130)
+SIZE_DIALOG_NEWACCOUNT = (900, 480)
+SIZE_DIALOG_EDITACCOUNT = (900, 480)
+SIZE_DIALOG_ACCOUNTDETAIL = (650, 580)
 SIZE_DIALOG_CHGROOTPWD = (500, 240)   
-SIZE_DIALOG_PWDGEN = (420, 360)      
+SIZE_DIALOG_PWDGEN = (520, 360)      
 
 
 # splitterwindow min pane size

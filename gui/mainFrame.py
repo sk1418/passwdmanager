@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import myGui,util,config
 import wx,sys
 from service import TagService, PwdService
@@ -46,27 +44,14 @@ class MainWindow(wx.Frame):
         bar = self.CreateStatusBar()        
         bar.SetStatusText('Welcome to use Passwd Manager!')
         self.statusBar = bar
-#        box = wx.BoxSizer(wx.HORIZONTAL)                 
-#        infoTxtBox = wx.StaticText( bar, -1, "info", (0,3), wx.DefaultSize, wx.BOLD )
-#        infoTxtBox.SetLabel('Welcome to use Passwd Manager.')
-#        box.Add( infoTxtBox, 0, wx.ALIGN_BOTTOM|wx.ALL|wx.EXPAND, 5 )
-#        bar.SetSizer(box)
-        # this is used by the new thread checking updates
-#        self.infoTxtBox = infoTxtBox
-        
-        
         
         self.SetPosition(myGui.MAIN_WINDOW_POSITION)
         self.SetSize(myGui.MAIN_WINDOW_SIZE)
     
         
         
-#      
     def updateStatusBar(self,lv):
             self.statusBar.SetStatusText('<=* ! *=>New Version ' + lv + ' is available. Upgrade is HIGHLY RECOMMENDED!')
-#            info = self.infoTxtBox
-#            info.SetForegroundColour('RED')
-#            info.SetLabel('New Version ' + lv + ' is available. Upgrade is Highly Recommended!')
             myGui.showUpdateDialog(lv)
 
     def empty(self):
@@ -74,7 +59,6 @@ class MainWindow(wx.Frame):
     
         
     def fixSplitter(self,event):
-#        print 'dbclicked'
         self.sp.SetSashPosition(myGui.SPLITTERWINDOW_SASH_POS)
         event.Veto()
         
@@ -172,7 +156,6 @@ class MainWindow(wx.Frame):
         panelL.SetBackgroundColour('WHITE')
         
         
-#        self.sp.SetMinimumPaneSize(myGui.SPLITTERWINDOW_MIN_SIZE)
         splitter.SplitVertically(panelL,panelR)
         splitter.Bind(wx.EVT_SPLITTER_DCLICK,self.fixSplitter)
         splitter.SetSashPosition(myGui.SPLITTERWINDOW_SASH_POS)
@@ -309,7 +292,6 @@ class MainWindow(wx.Frame):
             if myGui.showConfirmationDialog(myGui.CONFIRM_COMPLETE_REMOVE , account.title)==wx.ID_YES:
                 self.pwdService.deleteAccount(account.id)
                 self.reLoadWindow()
-#                myGui.showInfoDialog(myGui.INFO_COMPLETE_REMOVE, account.title)
 
         else:    # move to Trash
             if myGui.showConfirmationDialog(myGui.CONFIRM_MOVETO_TRASH , account.title) ==wx.ID_YES:
@@ -323,7 +305,6 @@ class MainWindow(wx.Frame):
                             break;
                         
                 self.reLoadWindow()
-#                myGui.showInfoDialog(myGui.INFO_MOVETO_TRASH, account.title)
 
             
     def onAbout(self,event):
@@ -593,14 +574,12 @@ class PwdListCtrl(wx.ListCtrl,  ListCtrlAutoWidthMixin):
         
         
     def onDeSelect(self,event):
-#        print 'deselected'
         #clean the selected id
         self.mainFrm.selectedPwdId = None
         #disable buttons
         self.mainFrm.disableButtons()
         
     def onSelect(self,event):
-#        print 'pwdlist entry selected'
         pwdId = event.GetData()
         self.mainFrm.selectedPwdId = pwdId
         # once there is any entry selected, active buttons
@@ -631,8 +610,6 @@ class PwdListCtrl(wx.ListCtrl,  ListCtrlAutoWidthMixin):
             self.popmenu = wx.Menu()
                         
             for id, label, info, handler,icon in popMenuData:            
-#                m = self.popmenu.Append(-1, lbl, info)
-#                self.Bind(wx.EVT_MENU, handler, m)    
                 
                 menuItem = wx.MenuItem(self.popmenu, id, label)
                 menuItem.SetHelp(info)
