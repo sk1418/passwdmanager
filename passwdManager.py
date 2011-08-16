@@ -25,7 +25,7 @@ class PwdMgmtApp(wx.App):
             mainWin = MainWindow()
             self.SetTopWindow(mainWin)  
             mainWin.Show()
-#            #checking new version in new thread
+            #checking new version in new thread
             updatechk = UpdateChecker(mainWin)
             updatechk.start()
             return True

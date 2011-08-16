@@ -1,4 +1,3 @@
-#!/usr/bin/python
 '''
 Created on Mar 23, 2009
 
@@ -156,11 +155,6 @@ class AccountDetailDialog(wx.Dialog):
         item13 = wx.TextCtrl( self, updateId, "", wx.DefaultPosition,myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
         item3.Add( item13, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-#        item14 = wx.StaticText( self, ID_TEXT, "Status", wx.DefaultPosition, wx.DefaultSize, 0 )
-#        item3.Add( item14, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
-#    
-#        item15 = wx.TextCtrl( self, statusId, "", wx.DefaultPosition, myGui.SIZE_NORMAL_TEXT, wx.TE_READONLY)
-#        item3.Add( item15, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item16 = wx.StaticText( self, ID_TEXT, "Description", wx.DefaultPosition, wx.DefaultSize, 0)
         item3.Add( item16, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
@@ -199,7 +193,6 @@ class AccountDetailDialog(wx.Dialog):
         self.tags = item9
         self.create = item11
         self.lastupdate = item13
-#        self.status = item15
         self.description = item17
         self.password = item19
         
@@ -208,7 +201,6 @@ class AccountDetailDialog(wx.Dialog):
         self.tags.SetBackgroundColour( '#EFEBE7' )
         self.create.SetBackgroundColour( '#EFEBE7' )
         self.lastupdate.SetBackgroundColour( '#EFEBE7' )
-#        self.status.SetBackgroundColour( 'GRAY' )
         self.description.SetBackgroundColour( '#EFEBE7' )
         self.password.SetForegroundColour( '#E2644F' )
         self.password.SetBackgroundColour( 'BLACK' )
@@ -243,12 +235,7 @@ class AccountDetailDialog(wx.Dialog):
         self.create.SetValue(a.createdate)
         self.lastupdate.SetValue(a.lastupdate)
         self.description.SetValue(a.description)
-#        self.password.SetLabel(myGui.INFO_HIDE_TXT)
         self.password.SetValue(myGui.INFO_HIDE_TXT)
-#        if a.deleted == 1:
-#            self.status.SetValue(myGui.INFO_ACCOUNT_INTRASH)
-#        else:
-#            self.status.SetValue(myGui.INFO_ACCOUNT_ACTIVE)
     
     def showHidePassword (self,event):
         if self.chk.GetValue():
@@ -845,10 +832,3 @@ class EditTagDialog(wx.TextEntryDialog):
                 
             else:
                 self.tagService.editTag(self.tagId,name)
-            
-            
-            
-
-            
-            
-            

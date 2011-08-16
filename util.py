@@ -89,25 +89,7 @@ def getLatestVersion(versionUrl):
         pass
     return result
     
-        
-if __name__ == '__main__':
-    
-    print getRadomString(20)
-#
-#    
-#    
-#    k = 'bbbbbb'
-#    en = md5Encode(k)
-#    print 'md5:' +en
-#    
-#    msg = 'abcdefDgh'
-#    eMsg = encrypt(k,msg)
-#    print 'plain:' +msg
-#    print 'encrypted:'+eMsg
-#    
-#    k='bbbbb'
-#    dMsg = decrypt(k,eMsg)
-#    print 'decrypted:'+dMsg    
+# encrypt/decrypt file, not used
 
 #def encryptFile(fullFileName, key, overwrite=False):
 #    '''

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 '''
 Created on Mar 27, 2009
 
@@ -15,7 +14,6 @@ class RemoveTagException: pass
 class Service:
     def __init__(self):        
         ''' constructor '''
-        
     
     def getConnection(self):
         conn = sqlite.connect(config.CONN_PATH)

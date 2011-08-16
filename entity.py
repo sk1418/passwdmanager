@@ -1,4 +1,3 @@
-
 class Passwd:
     
     def __init__(self):
@@ -24,7 +23,6 @@ class Tag(object):
     '''
     tags for password items
     '''
-
 
     def __init__(self):
         '''
