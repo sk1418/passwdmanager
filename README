@@ -36,6 +36,10 @@ Upgrade
 
 change logs
 ------------------------------------------------
+v1.1.0
+* some improvement on GUI
+* code cleaning
+
 v1.0.4
 * Feature: Password Generator
 * Tag removing: now tag still in used can also be removed.

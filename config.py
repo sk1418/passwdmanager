@@ -17,7 +17,7 @@ CONN_PATH='data/data.pmgr'
 APP_NAME='Passwd Manager'
 
 #version
-VERSION = '1.0.4'
+VERSION = 1.1.0'
 VERSION_URL="http://code.google.com/p/passwdmanager/wiki/version"
 LATEST_VERSION=None
 
