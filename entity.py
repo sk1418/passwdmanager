@@ -7,16 +7,15 @@ class Passwd:
        self.username = ''
        self.description = ''
        self.pwd = ''
+       self.secret = ''
        self.createdate=None
        self.lastupdate=None
        self.deleted=0
        self.tags = []
        
-       # used by application
-#       self.plainpwd = ''
             
     def __repr__(self):
-        return '\nPwdItem:\nid:%s\ntitle:%s\ndescription:%s\npwd:%s\nTags:%s\n  \n' % (self.id,self.title.encode("utf-8"),self.description.encode("utf-8"),self.pwd,self.tags) 
+        return '\nPwdItem:\nid:%s\ntitle:%s\ndescription:%s\npwd:%s\nTags:%s\n SecretInfo:%s \n' % (self.id,self.title.encode("utf-8"),self.description.encode("utf-8"),self.pwd,self.tags,self.secret) 
 
         
 class Tag(object):
