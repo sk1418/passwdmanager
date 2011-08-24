@@ -13,7 +13,7 @@ class Passwd:
        self.tags = []
        
        # used by application
-       self.plainpwd = ''
+#       self.plainpwd = ''
             
     def __repr__(self):
         return '\nPwdItem:\nid:%s\ntitle:%s\ndescription:%s\npwd:%s\nTags:%s\n  \n' % (self.id,self.title.encode("utf-8"),self.description.encode("utf-8"),self.pwd,self.tags) 
