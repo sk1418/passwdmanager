@@ -61,8 +61,11 @@ class MasterService(Service):
             dePassword = util.decrypt(oldPwd, account.pwd)
             enPassword = util.encrypt(newRootPwd, dePassword)
 
-            deSecret = util.decrypt(oldPwd, account.secret)
-            enSecret = util.encrypt(newRootPwd, deSecret)
+            if account.secret:
+                deSecret = util.decrypt(oldPwd, account.secret)
+                enSecret = util.encrypt(newRootPwd, deSecret)
+            else:
+                enSecret = ""
 
             deUsername = util.decrypt(oldPwd, account.username)
             enUsername = util.encrypt(newRootPwd, deUsername)
