@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 '''
 Created on Mar 23, 2009
 
@@ -111,6 +112,7 @@ class AccountDetailDialog(wx.Dialog):
         statusId = 3020
         descriptionId = 3021
         passwordId = 3022
+        secretId = 3023
         ID_TEXT = -1
         chkId = -1
         #==================================
@@ -170,10 +172,16 @@ class AccountDetailDialog(wx.Dialog):
 #        item19 = wx.StaticText( self, passwordId, "", wx.DefaultPosition, wx.DefaultSize, 0 )
         item19 = wx.TextCtrl( self, passwordId, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, wx.TE_READONLY)
         item3.Add( item19, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+
+        item30 = wx.StaticText( self, ID_TEXT, "Secret notes", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item3.Add( item30, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+    
+        item31 = wx.TextCtrl( self, secretId, "", wx.DefaultPosition, myGui.SIZE_SECRET_TEXT, wx.TE_MULTILINE|wx.TE_READONLY)
+        item3.Add( item31, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item1.Add( item3, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
-        item20 = wx.CheckBox( self, chkId, "Show Password", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item20 = wx.CheckBox( self, chkId, "Show Password and Secret notes", wx.DefaultPosition, wx.DefaultSize, 0 )
         item1.Add( item20, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
         item0.Add( item1, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
@@ -197,6 +205,7 @@ class AccountDetailDialog(wx.Dialog):
         self.lastupdate = item13
         self.description = item17
         self.password = item19
+        self.secret = item31
         
         self.title.SetBackgroundColour( '#EFEBE7' )
         self.username.SetBackgroundColour( '#EFEBE7' )
@@ -206,6 +215,8 @@ class AccountDetailDialog(wx.Dialog):
         self.description.SetBackgroundColour( '#EFEBE7' )
         self.password.SetForegroundColour( '#E2644F' )
         self.password.SetBackgroundColour( 'BLACK' )
+        self.secret.SetForegroundColour( '#E2644F' )
+        self.secret.SetBackgroundColour( 'BLACK' )
         
         self.chk = item20 # checkbox
         
@@ -238,12 +249,15 @@ class AccountDetailDialog(wx.Dialog):
         self.lastupdate.SetValue(a.lastupdate)
         self.description.SetValue(a.description)
         self.password.SetValue(myGui.INFO_HIDE_TXT)
+        self.secret.SetValue(myGui.INFO_HIDE_TXT)
     
     def showHidePassword (self,event):
         if self.chk.GetValue():
             self.password.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.pwd))
+            self.secret.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.secret))
         else:
             self.password.SetValue(myGui.INFO_HIDE_TXT)
+            self.secret.SetValue(myGui.INFO_HIDE_TXT)
                    
 
 class EditAccountDialog(wx.Dialog):
@@ -255,6 +269,7 @@ class EditAccountDialog(wx.Dialog):
         descriptionId = 4015
         usernameId = 4016
         passwordId = 4017
+        secretId = 4010
         tagsListId = 4018
         #==================================
         
@@ -287,6 +302,12 @@ class EditAccountDialog(wx.Dialog):
         item10 = wx.TextCtrl( self, usernameId, "", wx.DefaultPosition,myGui.SIZE_DETAIL_TEXT, 0 )
         item4.Add( item10, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
+        item20 = wx.StaticText( self, -1, "Secret notes", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item4.Add( item20, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+    
+        item21 = wx.TextCtrl( self,secretId, "", wx.DefaultPosition, myGui.SIZE_SECRET_TEXT, wx.TE_MULTILINE )
+        item4.Add( item21, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
+
         item11 = wx.StaticText( self, -1, "(*) Password", wx.DefaultPosition, wx.DefaultSize, 0 )
         item4.Add( item11, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
     
@@ -296,8 +317,7 @@ class EditAccountDialog(wx.Dialog):
         item2.Add( item4, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
     
         item13 = wx.StaticText( self, -1, 
-            "(*) Leave the password empty\n"
-            "if you wanna keep the old password.",
+            "(*) Leave the password empty if you wanna keep the old password.",
             wx.DefaultPosition, wx.DefaultSize, 0 )
         item13.SetForegroundColour( wx.RED )
         item2.Add( item13, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
@@ -335,6 +355,7 @@ class EditAccountDialog(wx.Dialog):
         self.username = item10
         self.tags = item16
         self.description = item8
+        self.secret = item21
         self.password = item12
         
        
@@ -354,6 +375,7 @@ class EditAccountDialog(wx.Dialog):
         self.title.SetValue(a.title)
         self.username.SetValue(a.username)
         self.description.SetValue(a.description)
+        self.secret.SetValue(util.decrypt(config.getRootPwd(), a.secret))
         for tag in a.tags:
             name = tag.name
             self.tags.SetStringSelection(name,True)
@@ -391,11 +413,12 @@ class EditAccountDialog(wx.Dialog):
                 vDescription = self.description.GetValue()
                 vAccount = self.username.GetValue()
                 vPassword = self.password.GetValue() if len(self.password.GetValue())>0 else None               
+                vSecret = unicode.encode(self.secret.GetValue(),'utf-8')
                 vTagIds = []
                 for idx in self.tags.GetSelections():
                     vTagIds.append(self.tags.GetClientData(idx))
                 
-                self.pwdService.editAccount(self.pwdId,vTitle,vDescription,vAccount,vPassword,vTagIds)
+                self.pwdService.editAccount(self.pwdId,vTitle,vDescription,vAccount,vPassword, vSecret,vTagIds)
             
             
             
@@ -420,6 +443,9 @@ class NewPwdDialog(wx.Dialog):
         pwdValue = 107
         infoLbl = 108
         tags = 109
+
+        secretLbl = 110
+        secretValue = 111
         #===================================
        
         item0 = wx.BoxSizer( wx.VERTICAL )
@@ -456,10 +482,16 @@ class NewPwdDialog(wx.Dialog):
     
         item12 = wx.TextCtrl( self, pwdValue, "", wx.DefaultPosition, myGui.SIZE_DETAIL_TEXT, 0 )
         item4.Add( item12, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+        item20 = wx.StaticText( self,secretLbl, "(*) Secret Notes", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item4.Add( item20, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
     
+        item21 = wx.TextCtrl( self, secretValue, "", wx.DefaultPosition, myGui.SIZE_SECRET_TEXT, wx.TE_MULTILINE )
+        item4.Add( item21, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
         item2.Add( item4, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
-        item13 = wx.StaticText( self, infoLbl, "(*) The password in the textbox will be visible.", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item13 = wx.StaticText( self, infoLbl, "(*) The password and secret notes in the textbox will be visible. \n(*) Account(username), password and secret notes will be encrypted-stored.", wx.DefaultPosition, wx.DefaultSize, 0 )
         item2.Add( item13, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
     
         item1.Add( item2, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
@@ -491,6 +523,7 @@ class NewPwdDialog(wx.Dialog):
         self.description = item8
         self.account = item10
         self.password = item12
+        self.secret = item21
         self.tags = item16
         self.okBt = item18
         
@@ -541,11 +574,12 @@ class NewPwdDialog(wx.Dialog):
                 vDescription = self.description.GetValue()
                 vAccount = self.account.GetValue()
                 vPassword = self.password.GetValue()                
+                vSecret = unicode.encode(self.secret.GetValue(),'utf-8')
                 vTagIds = []
                 for idx in self.tags.GetSelections():
                     vTagIds.append(self.tags.GetClientData(idx))
                 
-                pwdService.addAccount(vTitle,vDescription,vAccount,vPassword,vTagIds)
+                pwdService.addAccount(vTitle,vDescription,vAccount,vPassword,vSecret, vTagIds)
                 
                
     
