@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import myGui,util,config
 import wx,sys
 from service import TagService, PwdService
@@ -221,6 +222,7 @@ class MainWindow(wx.Frame):
         
     def onQuit(self,event):
         self.Close()
+        exit()
         
     def onUpdate(self, event):        
         lv = config.LATEST_VERSION
