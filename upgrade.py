@@ -35,14 +35,67 @@ def showErrorDialog(ErrMsg):
     dlg = wx.MessageDialog(None, ErrMsg, 'Error' , wx.OK |  wx.ICON_ERROR)
     dlg.ShowModal()      
 
-class UpgradeService(service.Service):
+class UpgradeService:
 
     def __init__(self):
         '''
         constructor
         '''
-        self.rootService = service.MasterService()
+        self.log = None
 
+    def getConnection(self):
+        conn = sqlite.connect(config.CONN_PATH)
+        return conn
+
+    def addLog(self,msg):
+        self.log.SetValue(self.log.GetValue()+"\n"+msg)
+
+    def upgrade(self,src,key,log):
+        self.log = log
+        self.addLog("Starting upgrade")
+        #the original datafile in new version
+        newData=config.CONN_PATH;
+        # backup the newData(sample data) with .bak
+        #shutil.copy(newData,newData+".bak")
+        self.addLog("backup 1.1.0 datafile->"+newData+".bak")
+        
+        #shutil.copy(src, newData)
+        self.addLog("copy 1.0.x datafile->"+newData)
+
+        #shutil.copy(self.filepicker.GetPath(), newData+"_v1.0.x.bak")
+        self.addLog("backup 1.0.x datafile->"+newData+"_v1.0.x.bak")
+        
+        conn = self.getConnection()
+        self.__addSecretColumn(conn)
+        self.__encryptAccounts(key,conn)
+        conn.commit()
+        conn.close()
+    def __addSecretColumn(self,conn,log):
+        sql = """
+        ALTER TABLE ACCOUNT ADD COLUMN secret TEXT
+            """
+        cur = conn.cursor()
+        cur.execute(sql)
+        cur.close()
+
+    def __encryptAccounts(self,key,conn,log):
+        cur = conn.cursor()
+        cur2 =conn.cursor()
+        sql = 'select id,  username FROM ACCOUNT'
+        cur.execute(sql)
+        
+        upsql = 'update Account set username=? where id=?'
+        
+        for row in cur.fetchall():
+            (id,uid) = row
+            newUid=util.encrypt(key,uid)
+            print id,newUid
+            cur2.execute(upsql,(newUid,id,))
+            
+            
+        cur2.close()
+        cur.close()
+            
 
 class MainFrame(wx.Frame):
     '''
@@ -115,7 +168,7 @@ class MainFrame(wx.Frame):
 
         self.pwd = item6
         self.filepicker = item4
-        self.log = item8
+        self.log = item9
 
         self.Bind(wx.EVT_BUTTON, self.onStart, item11)
 
@@ -126,7 +179,7 @@ class MainFrame(wx.Frame):
         '''user click upgrade'''
 
         if not self.pwd.GetValue():
-            showErrorDialog("Root password cannot be empty!")
+            showErrorDialog("Master password cannot be empty!")
             self.pwd.SetFocus()
         elif not self.filepicker.GetPath():
             showErrorDialog("please choose the passwd Manager data file in old version.")
@@ -141,8 +194,11 @@ class MainFrame(wx.Frame):
             self.pwd.SetFocus()
 
         else:
-            pass
             #here start the upgrade logic
+            
+            self.upgService.upgrade(self.filepicker.GetPath(),self.pwd.GetValue(), self.log)
+
+
 
 
 
