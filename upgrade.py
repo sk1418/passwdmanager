@@ -135,9 +135,9 @@ class MainFrame(wx.Frame):
         item0.Add(placeHolder)#place holder
         item1 = wx.StaticText( self, ID_INFO, 
             "This tool will upgrade the data file of passwdManager 1.0.x to 1.1.x. \n"
-            "Note:\n\n"
+            "\nNote:\n"
             "- a backup of given data file will be automatically created\n"
-            "- Master password of your data file is needed for upgrading.(encryption account names)",
+            "- Master password of your data file is needed for upgrading.(for encrypting account names)",
             wx.DefaultPosition, [700,120], 0 )
         item0.Add( item1, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
@@ -231,18 +231,6 @@ class UpApp(wx.App):
 
 
 if __name__ == '__main__':
-
-
     upApp = UpApp()
     upApp.MainLoop()
-
-    #get rootPwd and old db path from GUI
-    #origDB="/tmp/a.txt"
-    #rootPwd="password"
-    ##backup
-    #backupAndCopy("/tmp/a.txt",config.CONN_PATH)
-    #upService = UpgradeService()
-
-
-
 
