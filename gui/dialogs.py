@@ -254,7 +254,7 @@ class AccountDetailDialog(wx.Dialog):
     def showHidePassword (self,event):
         if self.chk.GetValue():
             self.password.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.pwd))
-            self.secret.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.secret))
+            self.secret.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.secret) if self.accountObj.secret else "")
         else:
             self.password.SetValue(myGui.INFO_HIDE_TXT)
             self.secret.SetValue(myGui.INFO_HIDE_TXT)
@@ -375,7 +375,7 @@ class EditAccountDialog(wx.Dialog):
         self.title.SetValue(a.title)
         self.username.SetValue(a.username)
         self.description.SetValue(a.description)
-        self.secret.SetValue(util.decrypt(config.getRootPwd(), a.secret))
+        self.secret.SetValue(util.decrypt(config.getRootPwd(), a.secret) if a.secret else "")
         for tag in a.tags:
             name = tag.name
             self.tags.SetStringSelection(name,True)
