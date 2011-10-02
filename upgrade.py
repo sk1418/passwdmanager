@@ -12,11 +12,6 @@ SIZE_MULTILINE = (400,300)
 SIZE_ROOT = (300,28)
 
 
-def backupAndCopy(src,dst):
-    #backup
-    shutil.copy(src,dst +".bak")
-    #copy to data dir
-    shutil.copy(src,dst)
 
 def chkRootPwd(path, pwd):
     '''check given root password on given path'''
@@ -51,26 +46,39 @@ class UpgradeService:
         self.log.SetValue(self.log.GetValue()+"\n"+msg)
 
     def upgrade(self,src,key,log):
-        self.log = log
-        self.addLog("Starting upgrade")
-        #the original datafile in new version
-        newData=config.CONN_PATH;
-        # backup the newData(sample data) with .bak
-        #shutil.copy(newData,newData+".bak")
-        self.addLog("backup 1.1.0 datafile->"+newData+".bak")
-        
-        #shutil.copy(src, newData)
-        self.addLog("copy 1.0.x datafile->"+newData)
+        try:
+            
+            self.log = log
+            self.log.SetValue("")
+            self.addLog("Starting upgrade")
+            #the original datafile in new version
+            newData=config.CONN_PATH;
+            # backup the newData(sample data) with .bak
+            #shutil.copy(newData,newData+".bak")
+            self.addLog("backup 1.1.0 datafile->"+newData+".bak")
+            
+            #shutil.copy(src, newData)
+            self.addLog("copy 1.0.x datafile->"+newData)
 
-        #shutil.copy(self.filepicker.GetPath(), newData+"_v1.0.x.bak")
-        self.addLog("backup 1.0.x datafile->"+newData+"_v1.0.x.bak")
-        
-        conn = self.getConnection()
-        self.__addSecretColumn(conn)
-        self.__encryptAccounts(key,conn)
-        conn.commit()
-        conn.close()
-    def __addSecretColumn(self,conn,log):
+            #shutil.copy(self.filepicker.GetPath(), newData+"_v1.0.x.bak")
+            self.addLog("backup 1.0.x datafile->"+newData+"_v1.0.x.bak")
+            
+            conn = self.getConnection()
+            self.addLog("Adding Secret Info column to datafile.... ")
+            self.__addSecretColumn(conn)
+            self.addLog("Done!")
+            
+            self.addLog("Encrypting username/loginName for all existing accounts....")
+            self.__encryptAccounts(key,conn)
+            self.addLog("Done!")
+            self.addLog("Upgrade Finished!")
+            conn.commit()
+            conn.close()
+        except sqlite.OperationalError:
+            self.addLog("Upgrade datafile failed. Is selected datafile with version 1.0.x?")
+            showErrorDialog("Upgrade datafile failed. Is selected datafile with version 1.0.x?")
+
+    def __addSecretColumn(self,conn):
         sql = """
         ALTER TABLE ACCOUNT ADD COLUMN secret TEXT
             """
@@ -78,7 +86,7 @@ class UpgradeService:
         cur.execute(sql)
         cur.close()
 
-    def __encryptAccounts(self,key,conn,log):
+    def __encryptAccounts(self,key,conn):
         cur = conn.cursor()
         cur2 =conn.cursor()
         sql = 'select id,  username FROM ACCOUNT'
@@ -151,15 +159,17 @@ class MainFrame(wx.Frame):
         item8 = wx.StaticText( self, ID_TEXT, "Upgrade log", wx.DefaultPosition, [440,-1], 0 )
         item0.Add( item8, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-        item9 = wx.TextCtrl( self, ID_TEXTCTRL, "", wx.DefaultPosition, [500,400], wx.TE_MULTILINE )
+        item9 = wx.TextCtrl( self, ID_TEXTCTRL, "", wx.DefaultPosition, [500,400], wx.TE_MULTILINE|wx.TE_READONLY)
         item0.Add( item9, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-        item10 = wx.FlexGridSizer( 0, 2, 0, 0 )
+        item10 = wx.FlexGridSizer( 0, 3, 0, 0 )
         
         item10.Add( placeHolder , 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
         item11 = wx.Button( self, wx.ID_OK, "Start", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item12 = wx.Button( self, wx.ID_CLOSE, "Close", wx.DefaultPosition, wx.DefaultSize, 0 )
         item10.Add( item11, 0, wx.ALIGN_RIGHT|wx.LEFT|wx.TOP|wx.BOTTOM, 5 )
+        item10.Add( item12, 0, wx.ALIGN_RIGHT|wx.LEFT|wx.TOP|wx.BOTTOM, 5 )
 
         item0.Add( item10, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT|wx.TOP|wx.BOTTOM|wx.SHAPED, 5 )
 
@@ -169,11 +179,15 @@ class MainFrame(wx.Frame):
         self.pwd = item6
         self.filepicker = item4
         self.log = item9
+        self.okbt= item11
 
         self.Bind(wx.EVT_BUTTON, self.onStart, item11)
+        self.Bind(wx.EVT_BUTTON, self.exitUpg, item12)
 
         self.upgService = UpgradeService()
 
+    def exitUpg(self,event):
+        exit() 
 
     def onStart(self,event):
         '''user click upgrade'''
@@ -196,8 +210,9 @@ class MainFrame(wx.Frame):
         else:
             #here start the upgrade logic
             
-            self.upgService.upgrade(self.filepicker.GetPath(),self.pwd.GetValue(), self.log)
 
+            self.upgService.upgrade(self.filepicker.GetPath(),self.pwd.GetValue(), self.log)
+            self.okbt.Disable()
 
 
 
