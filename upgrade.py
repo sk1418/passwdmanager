@@ -54,13 +54,13 @@ class UpgradeService:
             #the original datafile in new version
             newData=config.CONN_PATH;
             # backup the newData(sample data) with .bak
-            #shutil.copy(newData,newData+".bak")
+            shutil.copy(newData,newData+".bak")
             self.addLog("backup 1.1.0 datafile->"+newData+".bak")
             
-            #shutil.copy(src, newData)
+            shutil.copy(src, newData)
             self.addLog("copy 1.0.x datafile->"+newData)
 
-            #shutil.copy(self.filepicker.GetPath(), newData+"_v1.0.x.bak")
+            shutil.copy(src, newData+"_v1.0.x.bak")
             self.addLog("backup 1.0.x datafile->"+newData+"_v1.0.x.bak")
             
             conn = self.getConnection()
@@ -69,9 +69,11 @@ class UpgradeService:
             self.addLog("Done!")
             
             self.addLog("Encrypting username/loginName for all existing accounts....")
-            self.__encryptAccounts(key,conn)
-            self.addLog("Done!")
-            self.addLog("Upgrade Finished!")
+            c = self.__encryptAccounts(key,conn)
+            self.addLog("Done! "+ str(c) + " accounts were updated.")
+            self.addLog("Upgrade Finished, also your old data were migrated to new PasswdManager.")
+            self.addLog("Close Upgrade tool, and start PasswdManager, login with your old master password.")
+            self.addLog("Thanks for using PasswordManager")
             conn.commit()
             conn.close()
         except sqlite.OperationalError:
@@ -94,15 +96,17 @@ class UpgradeService:
         
         upsql = 'update Account set username=? where id=?'
         
+        c=0
         for row in cur.fetchall():
             (id,uid) = row
             newUid=util.encrypt(key,uid)
-            print id,newUid
             cur2.execute(upsql,(newUid,id,))
+            c += 1
             
             
         cur2.close()
         cur.close()
+        return c
             
 
 class MainFrame(wx.Frame):
