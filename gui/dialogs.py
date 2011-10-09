@@ -100,7 +100,7 @@ class AccountDetailDialog(wx.Dialog):
     show account details (read only)
     '''
     def __init__(self,parent,pwdId):        
-        wx.Dialog.__init__(self,parent,id=-1,title="Account Detail")
+        wx.Dialog.__init__(self,parent,id=-1,title="Account Detail",pos=myGui.DIALOG_POSITION)
         
         # IDs for widgets
         #==================================
@@ -254,7 +254,7 @@ class AccountDetailDialog(wx.Dialog):
     def showHidePassword (self,event):
         if self.chk.GetValue():
             self.password.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.pwd))
-            self.secret.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.secret) if self.accountObj.secret else "")
+            self.secret.SetValue(util.decrypt(config.getRootPwd(),self.accountObj.secret).decode('utf-8') if self.accountObj.secret else "")
         else:
             self.password.SetValue(myGui.INFO_HIDE_TXT)
             self.secret.SetValue(myGui.INFO_HIDE_TXT)
@@ -262,7 +262,7 @@ class AccountDetailDialog(wx.Dialog):
 
 class EditAccountDialog(wx.Dialog):
     def __init__(self,parent,pwdId):
-        wx.Dialog.__init__(self,parent,id=-1,title="Edit account")
+        wx.Dialog.__init__(self,parent,id=-1,title="Edit account",pos=myGui.DIALOG_POSITION)
         # IDs for widgets
         #==================================  
         titleId = 4014
@@ -375,7 +375,7 @@ class EditAccountDialog(wx.Dialog):
         self.title.SetValue(a.title)
         self.username.SetValue(a.username)
         self.description.SetValue(a.description)
-        self.secret.SetValue(util.decrypt(config.getRootPwd(), a.secret) if a.secret else "")
+        self.secret.SetValue(util.decrypt(config.getRootPwd(), a.secret).decode('utf-8') if a.secret else "")
         for tag in a.tags:
             name = tag.name
             self.tags.SetStringSelection(name,True)
@@ -413,7 +413,8 @@ class EditAccountDialog(wx.Dialog):
                 vDescription = self.description.GetValue()
                 vAccount = self.username.GetValue()
                 vPassword = self.password.GetValue() if len(self.password.GetValue())>0 else None               
-                vSecret = unicode.encode(self.secret.GetValue(),'utf-8')
+                #vSecret = unicode.encode(self.secret.GetValue(),'utf-8')
+                vSecret = self.secret.GetValue().encode('utf-8')
                 vTagIds = []
                 for idx in self.tags.GetSelections():
                     vTagIds.append(self.tags.GetClientData(idx))
@@ -429,7 +430,7 @@ class NewPwdDialog(wx.Dialog):
     '''
     
     def __init__(self,parent,id=-1,title="Add new account"):
-        wx.Dialog.__init__(self,parent,id,title)
+        wx.Dialog.__init__(self,parent,id,title,pos=myGui.DIALOG_POSITION)
         
         # IDs for widgets
         #==================================
@@ -574,7 +575,8 @@ class NewPwdDialog(wx.Dialog):
                 vDescription = self.description.GetValue()
                 vAccount = self.account.GetValue()
                 vPassword = self.password.GetValue()                
-                vSecret = unicode.encode(self.secret.GetValue(),'utf-8')
+                #vSecret = unicode.encode(self.secret.GetValue(),'utf-8')
+                vSecret = self.secret.GetValue().encode('utf-8')
                 vTagIds = []
                 for idx in self.tags.GetSelections():
                     vTagIds.append(self.tags.GetClientData(idx))
@@ -585,7 +587,7 @@ class NewPwdDialog(wx.Dialog):
     
 class ChgRootPwdDialog(wx.Dialog):
     def __init__(self,parent,id=-1,title="Change Master Password"):
-        wx.Dialog.__init__(self,parent,id,title)
+        wx.Dialog.__init__(self,parent,id,title,pos=myGui.DIALOG_POSITION)
         #ID for widges
         #------------------
         ID_TEXT = 2010
@@ -681,7 +683,7 @@ class ChgRootPwdDialog(wx.Dialog):
             
 class PwdGenDialog(wx.Dialog):            
     def __init__(self,parent,id=-1,title="Password Generator", setBack=False):
-        wx.Dialog.__init__(self,parent,id,title)
+        wx.Dialog.__init__(self,parent,id,title,pos=myGui.DIALOG_POSITION)
         
         #--------------
         ID_TEXT = 32000

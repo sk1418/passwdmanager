@@ -63,7 +63,9 @@ ICON_MENU_PWDGEN =ICON_ROOT + 'pwdgen16.png'
 ##################################
 #Application window size,position
 MAIN_WINDOW_SIZE=(1100,700)
-MAIN_WINDOW_POSITION=(120,120)
+MAIN_WINDOW_POSITION=(100,80)
+#Dialog position is needed for windows platform.
+DIALOG_POSITION=(270,150)
 
 # Button
 #BUTTON_SIZE=(100,28)

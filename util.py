@@ -130,15 +130,3 @@ def getLatestVersion(versionUrl):
 #        targetF.write(obj.decrypt(txt))
 #
 #    targetF.close()
-    
-
-
-if __name__ == '__main__':
-    a = "我做个"
-    obj = __getKeyObject("123456")
-    b = obj.encrypt(a)
-    print b
-    
-    
-    
-    
