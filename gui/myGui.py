@@ -63,7 +63,9 @@ ICON_MENU_PWDGEN =ICON_ROOT + 'pwdgen16.png'
 ##################################
 #Application window size,position
 MAIN_WINDOW_SIZE=(1100,700)
-MAIN_WINDOW_POSITION=(120,120)
+MAIN_WINDOW_POSITION=(100,80)
+#Dialog position is needed for windows platform.
+DIALOG_POSITION=(270,150)
 
 # Button
 #BUTTON_SIZE=(100,28)
@@ -73,17 +75,18 @@ BUTTON_SIZE= wx.DefaultSize
 SIZE_LONG_TEXT=(300,28)
 
 SIZE_NORMAL_TEXT=(200,28)
-SIZE_MULTILINE_TEXT=(400,200)
+SIZE_MULTILINE_TEXT=(400,100)
 # textbox in create/edit/detail dialog. keeping same length with multilineTextBox
 SIZE_DETAIL_TEXT= (400,28) 
+SIZE_SECRET_TEXT= (400,200) 
 
 
 
 # Dialog
 SIZE_DIALOG_LOGIN = (400, 130)
-SIZE_DIALOG_NEWACCOUNT = (900, 480)
-SIZE_DIALOG_EDITACCOUNT = (900, 480)
-SIZE_DIALOG_ACCOUNTDETAIL = (650, 580)
+SIZE_DIALOG_NEWACCOUNT = (900, 610)
+SIZE_DIALOG_EDITACCOUNT = (900,610)
+SIZE_DIALOG_ACCOUNTDETAIL = (650,680)
 SIZE_DIALOG_CHGROOTPWD = (500, 240)   
 SIZE_DIALOG_PWDGEN = (520, 360)      
 
@@ -158,7 +161,7 @@ CONFIRM_MOVETO_TRASH = """Are you sure to move the account [%s]?"""
 CONFIRM_COMPLETE_REMOVE = """Are you sure to PERMANENTLY DELETE the account [%s]?"""
 CONFIRM_EMPTY_TRASH = """Are you sure to empty the trash?"""
 CONFIRM_REMOVE_TAG = """Are you sure to remove the tag [%s]?"""
-CONFIRM_REMOVE_USEDTAG = """Removing tag [%s] will not remove related accounts. Continue to remove Tag?"""
+CONFIRM_REMOVE_USEDTAG = """Removing tag [%s] will NOT remove related accounts. Continue to remove Tag?"""
 
 ##################################
 #Error messages

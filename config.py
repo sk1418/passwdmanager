@@ -13,13 +13,13 @@ __ROOT_PWD=''
 # database path
 CONN_PATH='data/data.pmgr'
 
-# APPL name
-APP_NAME='Passwd Manager'
-
 #version
 VERSION = '1.1.0'
 VERSION_URL="http://code.google.com/p/passwdmanager/wiki/version"
 LATEST_VERSION=None
+
+# APPL name
+APP_NAME='Passwd Manager'
 
 def setLatestVersion(version):
     global LATEST_VERSION

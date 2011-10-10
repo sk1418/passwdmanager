@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import myGui,util,config
 import wx,sys
 from service import TagService, PwdService
@@ -13,7 +14,7 @@ Created on Mar 23, 2009
 '''
 class MainWindow(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, - 1, "Passwd Manager")
+        wx.Frame.__init__(self, None, - 1, config.APP_NAME + " " + config.VERSION)
         # values for the listCtrl
         self.pwdList = []
         self.searchResult = []
@@ -28,8 +29,6 @@ class MainWindow(wx.Frame):
         
         # create menu
         self.__createMenu()
-        
-        
         
         # toolbar
         self.__createToolBar()
@@ -223,6 +222,7 @@ class MainWindow(wx.Frame):
         
     def onQuit(self,event):
         self.Close()
+        exit()
         
     def onUpdate(self, event):        
         lv = config.LATEST_VERSION
@@ -233,7 +233,7 @@ class MainWindow(wx.Frame):
         elif lv>config.VERSION:
             myGui.showUpdateDialog(lv)
         else:
-            myGui.showInfoDialog("You are using the latest version.")
+            myGui.showInfoDialog("Your passwd Manager is up to date.")
         
     def onSearch(self,event):    
         
@@ -639,7 +639,7 @@ class UpdateChecker(Thread):
             wx.CallAfter(self.mw.updateStatusBar,lv)
         else :
             if self.popup:
-                myGui.showInfoDialog("You are using the latest version.")
+                myGui.showInfoDialog("Your password Manager is up to date.")
             wx.CallAfter(self.mw.empty)
 
     

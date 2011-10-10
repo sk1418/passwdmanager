@@ -26,6 +26,11 @@ DEFAULT MASTER PASSWORD
 
 Upgrade
 ------------------------------------------------
+1.0.x to 1.1.x upgrade:
+
+using upgrade tool <appHome>/upgrade.py to upgrade
+
+Else:
 1 Exit the application
 2 Backup your data directory. (<appHome>/data)
 3 Download and extract the new version
@@ -39,6 +44,8 @@ change logs
 v1.1.0
 * some improvement on GUI
 * code cleaning
+* Feature: secret text
+* Feature: username/accountname is also stored with encryption.
 
 v1.0.4
 * Feature: Password Generator
@@ -61,13 +68,3 @@ v1.0.1
 
 v1.0.0
 1st release
-
-
-Todo
-------------------------------------------------
-* account, description, password 3 fields all should be encrypted by master password
-	- prepare a upgrade interface to update the database for above requirement
-* auto-backup feature
-	- consider storing config in database (backup path? how many recent files)
-	- GUI for backup
-

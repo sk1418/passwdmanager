@@ -60,14 +60,14 @@ class PwdDao():
         '''
         pwdList = []
         cur = self.conn.cursor()
-        sql = 'select id, title,  description, username, password,deleted,createdate,lastupdate FROM ACCOUNT where deleted<>1'
+        sql = 'select id, title,  description, username, password,secret, deleted,createdate,lastupdate FROM ACCOUNT where deleted<>1'
         cur.execute(sql)
         
         tagDao = TagDao(self.conn)
         
         for row in cur.fetchall():
             pwd = Passwd()
-            (pwd.id,pwd.title, pwd.description,    pwd.username,  pwd.pwd, pwd.deleted,pwd.createdate,pwd.lastupdate) = row
+            (pwd.id,pwd.title, pwd.description,    pwd.username,  pwd.pwd, pwd.secret, pwd.deleted,pwd.createdate,pwd.lastupdate) = row
             
             if pwd.id != 0:
                 tagList = tagDao.getTagsByPwdId(pwd.id);
@@ -79,13 +79,13 @@ class PwdDao():
     
     def getPwdById(self,pwdId):
         cur = self.conn.cursor()
-        sql = 'select id, title,  description, username, password,deleted,createdate,lastupdate FROM ACCOUNT where id=?'
+        sql = 'select id, title,  description, username, password,secret,deleted,createdate,lastupdate FROM ACCOUNT where id=?'
         cur.execute(sql,(pwdId,))
         
         tagDao = TagDao(self.conn)
         
         pwd = Passwd()
-        (pwd.id,pwd.title, pwd.description,    pwd.username,  pwd.pwd, pwd.deleted,pwd.createdate,pwd.lastupdate) = cur.fetchone()
+        (pwd.id,pwd.title, pwd.description,    pwd.username,  pwd.pwd, pwd.secret, pwd.deleted,pwd.createdate,pwd.lastupdate) = cur.fetchone()
             
         if pwd.id != 0:
             tagList = tagDao.getTagsByPwdId(pwd.id);
@@ -108,7 +108,7 @@ class PwdDao():
     def getPwdListFromTagId(self,tagId):
         
         pwdList = []
-        sql = """select id, title,  description, username, password,deleted,createdate,lastupdate FROM ACCOUNT WHERE id in (
+        sql = """select id, title,  description, username, password, secret,deleted,createdate,lastupdate FROM ACCOUNT WHERE id in (
                     SELECT pwdid FROM PWDTAGJOIN WHERE tagid = ? AND deleted<>1
                  ) 
         """
@@ -119,7 +119,7 @@ class PwdDao():
         
         for row in cur.fetchall():
             pwd = Passwd()
-            (pwd.id,pwd.title, pwd.description, pwd.username,pwd.pwd, pwd.deleted,pwd.createdate,pwd.lastupdate) = row
+            (pwd.id,pwd.title, pwd.description, pwd.username,pwd.pwd, pwd.secret,pwd.deleted,pwd.createdate,pwd.lastupdate) = row
             
             if pwd.id != 0:
                 tagList = tagDao.getTagsByPwdId(pwd.id);
@@ -129,27 +129,27 @@ class PwdDao():
         cur.close()
         return pwdList
     
-    def updateAccount(self,id,title, description, username, password,lastupdate):
+    def updateAccount(self,id,title, description, username, password,secret,lastupdate):
         
         sql = """
-                UPDATE ACCOUNT SET title=?, description=?, username=?,password=?,lastupdate=?   WHERE id=?
+                UPDATE ACCOUNT SET title=?, description=?, username=?,password=?,secret=?,lastupdate=?   WHERE id=?
             """
         cur = self.conn.cursor()
-        cur.execute(sql,(title,description,username,password,lastupdate,id))
+        cur.execute(sql,(title,description,username,password,secret,lastupdate,id))
         cur.close()
         return id
         
             
             
         
-    def insertAccount(self, id,title, description, account, password,createdate):
+    def insertAccount(self, id,title, description, account, password,secret,createdate):
         sql = """
-                Insert Into ACCOUNT (id,title,description,username,password,createdate,lastupdate)
-                VALUES(?,?,?,?,?,?,?)
+                Insert Into ACCOUNT (id,title,description,username,password,secret,createdate,lastupdate)
+                VALUES(?,?,?,?,?,?,?,?)
         """
      
         cur = self.conn.cursor()
-        cur.execute(sql,(id,title,description,account,password,createdate,createdate))
+        cur.execute(sql,(id,title,description,account,password,secret,createdate,createdate))
         cur.close()
         
         return id
@@ -210,21 +210,22 @@ class PwdDao():
         cur.execute(sql)
         row = cur.fetchone()[0]
         return row+1 if row !=None else  1
-#        row += 1
-#        return row
     
     def getSearchResult(self,keyword):
+        '''
+        username is also encrypted, so it is not in search.
+        '''
         pwdList=[]
         sql = """ 
             SELECT id, title,  description, username, password FROM ACCOUNT WHERE 
                 (title LIKE ? OR
-                description LIKE ? OR
-                username LIKE ? )AND
+                description LIKE ? 
+                 )AND
                 deleted<>1
         """
         keyword = '%'+keyword+'%'
         cur = self.conn.cursor()
-        cur.execute(sql,(keyword,keyword,keyword))
+        cur.execute(sql,(keyword,keyword))
         tagDao = TagDao(self.conn)
         
         for row in cur.fetchall():

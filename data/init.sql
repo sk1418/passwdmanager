@@ -15,6 +15,7 @@ CREATE TABLE ACCOUNT  (
         title TEXT NOT NULL,
         username TEXT,
         description TEXT,
+        secret TEXT,
         password TEXT NOT NULL,
         deleted INTEGER DEFAULT 0,
         createdate DATETIME,

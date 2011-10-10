@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 from Crypto.Cipher import CAST
 from Crypto.Hash import MD5
 import binascii
@@ -51,6 +53,7 @@ def encrypt(key, msg):
     
     #encrypt
     after = obj.encrypt(msg)    
+    
     #convert to string
     s = binascii.b2a_hex(after)
     
@@ -127,9 +130,3 @@ def getLatestVersion(versionUrl):
 #        targetF.write(obj.decrypt(txt))
 #
 #    targetF.close()
-    
-
-
-
-    
-    

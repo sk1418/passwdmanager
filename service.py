@@ -58,12 +58,25 @@ class MasterService(Service):
         accountList = pwdDao.getAllPasswd()
         currentDate = datetime.datetime.today()
         for account in accountList:
-            dePassword = util.decrypt(config.getRootPwd(), account.pwd)
+            dePassword = util.decrypt(oldPwd, account.pwd)
             enPassword = util.encrypt(newRootPwd, dePassword)
+
+            if account.secret:
+                deSecret = util.decrypt(oldPwd, account.secret)
+                enSecret = util.encrypt(newRootPwd, deSecret)
+            else:
+                enSecret = ""
+
+            deUsername = util.decrypt(oldPwd, account.username)
+            enUsername = util.encrypt(newRootPwd, deUsername)
+
             account.pwd = enPassword
+            account.username = enUsername
+            account.secret = enSecret
+
             account.lastupdate = currentDate
             pwdDao.updateAccount(account.id,account.title, account.description, account.username, 
-                                 account.pwd,account.lastupdate)
+                                 account.pwd, account.secret,account.lastupdate)
             
         
         # 2 get md5 of new root pwd, update the rootpassword table
@@ -88,10 +101,18 @@ class PwdService(Service):
         '''
         Constructor
         '''
+    def decryptUsername(self, pwd):
+        if pwd.username:
+            pwd.username = util.decrypt(config.getRootPwd(),pwd.username)
+        return pwd
+        
+
     def getAllPasswd(self):
         conn = self.getConnection()
         pwdDao = PwdDao(conn)
         result = pwdDao.getAllPasswd()
+        #decrypt username
+        result = [ self.decryptUsername(pwd) for pwd in result ]
         conn.close()
         return result
     
@@ -99,6 +120,7 @@ class PwdService(Service):
         conn = self.getConnection()
         pwdDao = PwdDao(conn)
         result = pwdDao.getPwdById(pwdId)
+        result.username = util.decrypt(config.getRootPwd(), result.username)
         conn.close()
         return result
         
@@ -130,6 +152,8 @@ class PwdService(Service):
         else:
             result = pwdDao.getPwdListFromTagId(tagId)
         
+        #decrypt username
+        result = [ self.decryptUsername(pwd) for pwd in result ]
         conn.close()
         return result
     
@@ -137,17 +161,21 @@ class PwdService(Service):
         conn = self.getConnection()
         pwdDao = PwdDao(conn)
         result = pwdDao.getSearchResult(keyword)
+        #decrypt username
+        result = [ self.decryptUsername(pwd) for pwd in result ]
+
         conn.close()
         
         return result
     
     
-    def editAccount(self,id,title,description,account,password,tagIds):
+    def editAccount(self,id,title,description,account,password,secret,tagIds):
         '''
         update account 
         @param title: account title
         @param description: account description
         @param account: account name/username, emailaddr, ....
+        @param secret: secret text from user
         @param password: password , it will not get updated if value is None
         @param tagIds: a list of related tagIds
         
@@ -155,15 +183,15 @@ class PwdService(Service):
         conn = self.getConnection()
         pwdDao = PwdDao(conn)
         pwdObj = pwdDao.getPwdById(id)
+        masterPwd = config.getRootPwd()
         
-        eAccount = account
         
-        if password:
-            ePassword = util.encrypt(config.getRootPwd(), password)
-        else:
-            ePassword = pwdObj.pwd
+        ePassword = util.encrypt(masterPwd, password) if password else pwdObj.pwd
+        eSecret = util.encrypt(masterPwd,secret) if secret else ""
+        eUsername = util.encrypt(masterPwd, account) if account else ""
+
         current = datetime.datetime.today()
-        pwdDao.updateAccount(id, title, description, eAccount, ePassword, current)
+        pwdDao.updateAccount(id, title, description, eUsername, ePassword, eSecret, current)
         
         #2 process tags
         pwdDao.updateAccountTags(id, tagIds)
@@ -171,13 +199,14 @@ class PwdService(Service):
         conn.commit()
         conn.close()
         
-    def addAccount(self,title,description,account,password,tagIds):
+    def addAccount(self,title,description,account,password,secret,tagIds):
         '''
         add a user input account to database
         @param title: account title
         @param description: account description
         @param account: account name/username, emailaddr, ....
         @param password: password
+        @param secret: the secret text from user
         @param tagIds: a list of related tagIds
         
         '''
@@ -185,14 +214,14 @@ class PwdService(Service):
         pwdDao = PwdDao(conn)
         
          # encode account & password
-#        eAccount = util.encrypt(ROOT_PWD, account)
-        eAccount = account
         master = config.getRootPwd()
         ePassword = util.encrypt(master, password)
+        eSecret = util.encrypt(master,secret) if secret else ""
+        eAccount = util.encrypt(master, account) if account else ""
         current = datetime.datetime.today()
         id = pwdDao.getPwdId()
         #insert the account
-        pwdDao.insertAccount(id, title, description, eAccount, ePassword, current)
+        pwdDao.insertAccount(id, title, description, eAccount, ePassword, eSecret, current)
         
         #add tag to the new account if there is
         if len(tagIds) > 0 :
