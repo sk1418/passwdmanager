@@ -149,7 +149,7 @@ class MainFrame(wx.Frame):
         item4 = wx.FilePickerCtrl( self, ID_FILEPICKER, "", "Choose file", "passwd Manager Data file (*.pmgr)|*.pmgr", wx.DefaultPosition, [300,28], wx.FLP_OPEN|wx.FLP_USE_TEXTCTRL| wx.FLP_FILE_MUST_EXIST )
         item2.Add( item4, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
-        item5 = wx.StaticText( self, ID_PWD, "Root Password", wx.DefaultPosition, wx.DefaultSize, 0 )
+        item5 = wx.StaticText( self, ID_PWD, "Master Password", wx.DefaultPosition, wx.DefaultSize, 0 )
         item2.Add( item5, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 5 )
 
         item6 = wx.TextCtrl( self, ID_TEXTCTRL, "", wx.DefaultPosition, [300,28], wx.TE_PASSWORD )
