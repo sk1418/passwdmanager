@@ -5,9 +5,14 @@ from Crypto.Hash import MD5
 import binascii
 import urllib2
 import string, random
+import os,sys
+import shutil
+
 
 #algorithm
 MODE = CAST.MODE_CFB
+
+
 
 def __getKeyObject(key):
     
@@ -23,6 +28,13 @@ def md5Encode(txt):
     m.update(txt)
     s =m.hexdigest()
     return s
+
+
+def isWindows():
+    """check if the application is running on Windows"""
+    return sys.platform.upper().beginWith('WIN')
+
+
 
 
 def getRadomString(length,optionlist=['number','lower','upper','punc']):
