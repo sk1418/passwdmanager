@@ -32,7 +32,7 @@ def md5Encode(txt):
 
 def isWindows():
     """check if the application is running on Windows"""
-    return sys.platform.upper().beginWith('WIN')
+    return sys.platform.upper().startswith('WIN')
 
 
 

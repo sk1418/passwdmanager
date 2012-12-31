@@ -2,6 +2,8 @@
 
 import wx
 import config
+import confighandler
+import os
 from gui.mainFrame import  MainWindow, UpdateChecker
 from gui.dialogs import LoginDialog
 
@@ -34,5 +36,16 @@ class PwdMgmtApp(wx.App):
      
 
 if __name__ == '__main__':
+    # if the conf dir doesn't exist, create the conf dir
+    # This is only for linux
+    if not os.path.exists(confighandler.getConfDir()) :
+        confighandler.initHomeConfPath()
+
+    # load config
+    if not confighandler.loadConfig():
+        print "your config file cannot be loaded. Did you change it?"
+        exit(1)
+    
+    #start application GUI
     pwdApp = PwdMgmtApp()
     pwdApp.MainLoop()
