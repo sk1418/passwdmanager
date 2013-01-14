@@ -6,7 +6,7 @@ import binascii
 import urllib2
 import string, random
 import os,sys
-import shutil
+import shutil, datetime
 
 
 #algorithm
@@ -14,10 +14,9 @@ MODE = CAST.MODE_CFB
 
 
 
-def __getKeyObject(key):
-    
-    obj = CAST.new(key, MODE)
-    return obj
+def __getKeyObject(key, iv):
+    cipher = CAST.new(key, MODE, iv)
+    return cipher
 
 def md5Encode(txt):
     '''
@@ -61,13 +60,15 @@ def encrypt(key, msg):
     @param key: the password (master password)
     @param msg: plain message need to be encrypted
     '''
-    obj = __getKeyObject(key)
+     
+    iv = Random.new().read(CAST.block_size)
+    cipher = __getKeyObject(key,iv)
     
     #encrypt
-    after = obj.encrypt(msg)    
+    after = obj.encrypt(iv, msg)    
     
     #convert to string
-    s = binascii.b2a_hex(after)
+    s = binascii.b2a_hex(after).upper()
     
     return s
 
@@ -80,12 +81,15 @@ def decrypt(key, msg):
     @param key: the password (master password)
     @param msg: encrypted message need to be decrypted
     '''
-    obj = __getKeyObject(key)
     #decoding
-    b = binascii.a2b_hex(msg)
+    encrypted_msg   = binascii.a2b_hex(msg)
+    eiv = encrypted_msg[:CAST.block_size]
+
+    ciphertext = encrypted_msg[CAST.block_size:]
+    cipher = __getKeyObject(key,eiv)
     #decrypt
-    after = obj.decrypt(b)
-    return after
+    plain = cipher.decrypt(encrypted_msg)
+    return plain
 
 def getLatestVersion(versionUrl):
     #proxy is only for testing
@@ -104,41 +108,40 @@ def getLatestVersion(versionUrl):
         pass
     return result
     
-# encrypt/decrypt file, not used
+def backupDB():
+    """
+    backup data file to backup DIR
+    """
+    #check backup size, if reached, delete the oldest backup
+    #TODO
+    #do file coping
+    src = config.CONN_PATH
+    srcfn = os.path.basename(src)
+    targetfn = srcfn+"."+ datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    backupDB_with_fn(targetfn)
 
-#def encryptFile(fullFileName, key, overwrite=False):
-#    '''
-#    encrypting a given file (path). using 'DES' algorithm. 
-#    @param fullFileName: input file path
-#    @param key: the key for en/decryption, 8 didgits
-#    @param overwrite: if overwriting the original file. Default : No Overwriting. Creating a new file, appending ".encrypted" to original filename.    
-#    
-#    '''
-#    # get the keyobject
-#    obj = __getKeyObject(key)    
-#    
-#    sourceF = open(fullFileName,'r')    
-#    txtList = sourceF.readlines()
-#    sourceF.close()
-#    
-#    # target file object
-#    targetF = open(fullFileName,'w') if overwrite else open(fullFileName+'.encrypted', 'w')
-#    for txt in txtList:
-#        targetF.write(obj.encrypt(txt))
-#
-#    targetF.close()
-#    
-#def decryptFile(fullFileName, key, overwrite=False):
-#     # get the keyobject
-#    obj = __getKeyObject(key)    
-#    
-#    sourceF = open(fullFileName,'r')    
-#    txtList = sourceF.readlines()
-#    sourceF.close()
-#    
-#    # target file object
-#    targetF = open(fullFileName,'w') if overwrite else open(fullFileName+'.decrypted', 'w')
-#    for txt in txtList:
-#        targetF.write(obj.decrypt(txt))
-#
-#    targetF.close()
+
+    
+
+def backupDB_with_fn(dest_filename):
+    src = config.CONN_PATH
+    dest = config.BACKUP_DIR
+    destFile = os.path.join(dest,filename)
+    shutil.copy(src, destFile)
+
+def reencrypt_with_pycrp26(key):
+    """
+        decrypt and re-encrypt with pycrypto2.6 library
+    """
+    global MODE
+    oiv="\x00\x00\x00\x00\x00\x00\x00\x00"
+    ocipher = __getKeyObject(key,oiv)
+    old_msg = binascii.a2b_hex(ct)
+    plaintext = ocipher.decrypt(old_msg)
+
+    iv = Random.new().read(CAST.block_size)
+    cipher = __getKeyObject(key,iv)
+    msg = cipher.encrypt(iv+plaintext)
+    newEncrypted = binascii.b2a_hex(msg).upper()
+    return newEncrypted
+

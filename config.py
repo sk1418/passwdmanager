@@ -14,9 +14,10 @@ import util
 __ROOT_PWD     = ''
 
 # database path
-CONN_PATH      = 'data/data.pmgr'
+CONN_PATH      = '' #filled by confighandler
 
 #backup option
+BACKUP_DIR = '' # filled by confighandler
 BACKUP         = True
 BACKUP_SIZE    = 1
 

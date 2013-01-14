@@ -56,3 +56,14 @@ INSERT INTO TAG (id,name) VALUES (2,'Website');
 -- Default root password: 'password'
 INSERT INTO ROOTPASSWORD(md5String) VALUES ('5f4dcc3b5aa765d61d8327deb882cf99') 
 
+
+/*********************************
+ * TABLE config since 1.2.0
+ *********************************/
+CREATE TABLE CONFIG ( 
+    name TEXT(200) NOT NULL, 
+    value TEXT(500) NOT NULL 
+    );
+
+INSERT INTO CONFIG (name,value) VALUES ('version','1.2.0');
+

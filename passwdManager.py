@@ -24,6 +24,8 @@ class PwdMgmtApp(wx.App):
         pwdDlg.Destroy()
         
         if result:            
+            #here check version and do upgrade if necessary
+
             mainWin = MainWindow()
             self.SetTopWindow(mainWin)  
             mainWin.Show()

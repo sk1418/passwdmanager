@@ -7,6 +7,11 @@ import ConfigParser
 import util
 import config
 
+# conf entries for Windows
+WIN_CONF_DIR='conf'
+WIN_CONF_FILE=os.path.join(WIN_CONF_DIR,'win.conf')
+WIN_BACKUP_PATH='backup'
+
 
 # Default conf file for linux
 DEFAULT_CONF = 'conf/passwdManager.conf'
@@ -15,9 +20,10 @@ DEFAULT_DATA_PATH= os.path.join(os.getenv("HOME") , ".passwdManager","data","dat
 
 def getConfigFile():
     if util.isWindows():
-        return 'conf/win.conf'
+        global WIN_CONF_FILE
+        return WIN_CONF_FILE
     else:
-        return os.path.join(os.getenv("HOME") , ".passwdManager","passwdManager.conf")
+        return os.path.join(getConfDir(),"passwdManager.conf")
 
 
 def getConfDir():
@@ -48,10 +54,20 @@ def loadConfig():
         return False
     cf.read(configFile);
 
-    #load options
+    #load options from config file
     config.CONN_PATH = cf.get("settings","data.path")
     config.BACKUP = cf.getboolean("settings","backup.required")
     config.BACKUP_SIZE = cf.getint("settings", "backup.size")
+
+    # set backup dir in config
+    if util.isWindows():
+        global WIN_BACKUP_PATH, WIN_CONF_DIR, WIN_CONF_FILE
+        config.BACKUP_DIR=WIN_BACKUP_PATH
+    else:
+        config.BACKUP_DIR=os.path.join(getConfDir, 'backup')
+
+
+
 
     return True
 
@@ -66,9 +82,11 @@ def initHomeConfPath():
         print "run the application 1st time. homeConf dir needs to be created"
         confDir = getConfDir()
         dataDir = os.path.join(confDir, "data")
+        backupDir = os.path.join(confDir, "backup")
         #mkdir and copy files
         if not os.path.exists(confDir):
             os.makedirs(dataDir)
+            os.makedirs(backupDir)
 
         global DEFAULT_CONF, SAMPLE_DATA
         print "copy default conf file"

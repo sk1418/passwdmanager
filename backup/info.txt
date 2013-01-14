@@ -1,0 +1,1 @@
+This directory is used only for Windows OS.
