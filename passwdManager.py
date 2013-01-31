@@ -2,7 +2,7 @@
 
 import wx
 import config
-import confighandler
+import confighandler,upgradehandler
 import os
 from gui.mainFrame import  MainWindow, UpdateChecker
 from gui.dialogs import LoginDialog
@@ -25,7 +25,7 @@ class PwdMgmtApp(wx.App):
         
         if result:            
             #here check version and do upgrade if necessary
-
+            upgradehandler.upgrade() 
             mainWin = MainWindow()
             self.SetTopWindow(mainWin)  
             mainWin.Show()

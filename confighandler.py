@@ -64,10 +64,7 @@ def loadConfig():
         global WIN_BACKUP_PATH, WIN_CONF_DIR, WIN_CONF_FILE
         config.BACKUP_DIR=WIN_BACKUP_PATH
     else:
-        config.BACKUP_DIR=os.path.join(getConfDir, 'backup')
-
-
-
+        config.BACKUP_DIR=os.path.join(getConfDir(), 'backup')
 
     return True
 

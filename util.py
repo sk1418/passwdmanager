@@ -2,6 +2,7 @@
 
 from Crypto.Cipher import CAST
 from Crypto.Hash import MD5
+from Crypto import Random
 import binascii
 import urllib2
 import string, random
@@ -88,7 +89,7 @@ def decrypt(key, msg):
     ciphertext = encrypted_msg[CAST.block_size:]
     cipher = __getKeyObject(key,eiv)
     #decrypt
-    plain = cipher.decrypt(encrypted_msg)
+    plain = cipher.decrypt(ciphertext)
     return plain
 
 def getLatestVersion(versionUrl):
@@ -129,7 +130,7 @@ def backupDB_with_fn(dest_filename):
     destFile = os.path.join(dest,filename)
     shutil.copy(src, destFile)
 
-def reencrypt_with_pycrp26(key):
+def reencrypt_with_pycrp26(key,ct):
     """
         decrypt and re-encrypt with pycrypto2.6 library
     """
