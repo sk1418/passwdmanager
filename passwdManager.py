@@ -1,11 +1,12 @@
 #!/usr/bin/python
-
 import wx
-import config
-import confighandler,upgradehandler
+import config, confighandler,upgradehandler
 import os
+import logging
 from gui.mainFrame import  MainWindow, UpdateChecker
 from gui.dialogs import LoginDialog
+from gui.myGui import showInfoDialog
+
 
 '''
 Created on Mar 19, 2009
@@ -17,6 +18,8 @@ Created on Mar 19, 2009
 
 class PwdMgmtApp(wx.App):
     def OnInit(self):
+        #init logging
+        logging.basicConfig(filename=os.path.join (config.LOG_DIR, config.LOG_FILE), format='%(asctime)s %(levelname)s:%(message)s', level=logging.INFO)
         
         # show the authentication Dialog first 
         pwdDlg = LoginDialog(None)
@@ -25,7 +28,9 @@ class PwdMgmtApp(wx.App):
         
         if result:            
             #here check version and do upgrade if necessary
-            upgradehandler.upgrade() 
+            upgrade_msg = upgradehandler.upgrade() 
+            if  upgrade_msg:
+                showInfoDialog(upgrade_msg)
             mainWin = MainWindow()
             self.SetTopWindow(mainWin)  
             mainWin.Show()

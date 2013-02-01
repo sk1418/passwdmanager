@@ -4,6 +4,7 @@ Created on Mar 23, 2009
 
 @author: kent
 '''
+import logging
 import wx
 import wx.grid
 import myGui,config,util
@@ -11,6 +12,10 @@ from service import *
 
 
 RETRY = 5
+
+#class UpgradeMessageDialog(wx.Dialog):
+    #def __init__(self,parent,id=-1,title="Upgrade Message"):
+
 
 class LoginDialog(wx.Dialog):
     def __init__(self,parent,id=-1,title="Login"):
@@ -79,6 +84,7 @@ class LoginDialog(wx.Dialog):
             pwd = self.pwdBox.GetValue()#def encryptFile(fullFileName, key, overwrite=False):
 
             if not(mService.authentication(pwd)):
+                logging.warning("Login fails")
                 myGui.showErrorDialog(myGui.ERR_LOGIN)
                 global RETRY
 
@@ -90,6 +96,7 @@ class LoginDialog(wx.Dialog):
                 else:
                     return False                 
             else:
+                logging.warning("Login successful.")
                 config.setRootPwd(pwd)
                 return True
         else:

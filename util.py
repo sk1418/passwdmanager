@@ -8,6 +8,8 @@ import urllib2
 import string, random
 import os,sys
 import shutil, datetime
+import config
+
 
 
 #algorithm
@@ -127,7 +129,7 @@ def backupDB():
 def backupDB_with_fn(dest_filename):
     src = config.CONN_PATH
     dest = config.BACKUP_DIR
-    destFile = os.path.join(dest,filename)
+    destFile = os.path.join(dest,dest_filename)
     shutil.copy(src, destFile)
 
 def reencrypt_with_pycrp26(key,ct):

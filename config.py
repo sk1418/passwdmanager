@@ -5,7 +5,7 @@ Created on Apr 3, 2009
 '''
 import os, sys, shutil
 import ConfigParser
-import util
+import util,logging
 
 
 # root password
@@ -21,10 +21,17 @@ BACKUP_DIR = '' # filled by confighandler
 BACKUP         = True
 BACKUP_SIZE    = 1
 
+#log file dir
+LOG_DIR = '' # filled by confighandler
+LOG_FILE = 'pwm.log' # log filename
+
 #version
-VERSION        = '1.1.0'
+VERSION        = '1.2.0'
 VERSION_URL    = "http://code.google.com/p/passwdmanager/wiki/version"
 LATEST_VERSION = None
+
+
+
 
 # APPL name
 APP_NAME       = 'Passwd Manager'

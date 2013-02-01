@@ -2,21 +2,25 @@
  handle config files
  read config file, create home config directory, set config settings etc.
 """
-import os, sys, shutil
+import os, sys, shutil,logging
 import ConfigParser
 import util
 import config
 
+
+
 # conf entries for Windows
 WIN_CONF_DIR='conf'
 WIN_CONF_FILE=os.path.join(WIN_CONF_DIR,'win.conf')
-WIN_BACKUP_PATH='backup'
+WIN_BACKUP_PATH=os.path.join(WIN_CONF_DIR,'backup')
+WIN_LOG_DIR= os.path.join(WIN_CONF_DIR,'logs')
 
 
 # Default conf file for linux
 DEFAULT_CONF = 'conf/passwdManager.conf'
 SAMPLE_DATA  = 'data/data.pmgr'
 DEFAULT_DATA_PATH= os.path.join(os.getenv("HOME") , ".passwdManager","data","data.pmgr")
+
 
 def getConfigFile():
     if util.isWindows():
@@ -59,12 +63,15 @@ def loadConfig():
     config.BACKUP = cf.getboolean("settings","backup.required")
     config.BACKUP_SIZE = cf.getint("settings", "backup.size")
 
-    # set backup dir in config
+    # set backup/log dir in config
     if util.isWindows():
         global WIN_BACKUP_PATH, WIN_CONF_DIR, WIN_CONF_FILE
         config.BACKUP_DIR=WIN_BACKUP_PATH
+        config.LOG_DIR=WIN_LOG_DIR
+
     else:
         config.BACKUP_DIR=os.path.join(getConfDir(), 'backup')
+        config.LOG_DIR=os.path.join(getConfDir(), 'logs')
 
     return True
 
@@ -80,10 +87,12 @@ def initHomeConfPath():
         confDir = getConfDir()
         dataDir = os.path.join(confDir, "data")
         backupDir = os.path.join(confDir, "backup")
+        logDir = os.path.join(confDir, "logs")
         #mkdir and copy files
         if not os.path.exists(confDir):
             os.makedirs(dataDir)
             os.makedirs(backupDir)
+            os.makedirs(logDir)
 
         global DEFAULT_CONF, SAMPLE_DATA
         print "copy default conf file"
