@@ -22,8 +22,9 @@ BACKUP         = True
 BACKUP_SIZE    = 1
 
 #log file dir
-LOG_DIR = '' # filled by confighandler
-LOG_FILE = 'pwm.log' # log filename
+# logging information will go to database later
+#LOG_DIR = '' # filled by confighandler
+#LOG_FILE = 'pwm.log' # log filename
 
 #version
 VERSION        = '1.2.0'

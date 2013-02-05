@@ -2,7 +2,7 @@
  handle config files
  read config file, create home config directory, set config settings etc.
 """
-import os, sys, shutil,logging
+import os, sys, shutil
 import ConfigParser
 import util
 import config
@@ -13,7 +13,7 @@ import config
 WIN_CONF_DIR='conf'
 WIN_CONF_FILE=os.path.join(WIN_CONF_DIR,'win.conf')
 WIN_BACKUP_PATH=os.path.join(WIN_CONF_DIR,'backup')
-WIN_LOG_DIR= os.path.join(WIN_CONF_DIR,'logs')
+#WIN_LOG_DIR= os.path.join(WIN_CONF_DIR,'logs')
 
 
 # Default conf file for linux
@@ -67,11 +67,11 @@ def loadConfig():
     if util.isWindows():
         global WIN_BACKUP_PATH, WIN_CONF_DIR, WIN_CONF_FILE
         config.BACKUP_DIR=WIN_BACKUP_PATH
-        config.LOG_DIR=WIN_LOG_DIR
+        #config.LOG_DIR=WIN_LOG_DIR
 
     else:
         config.BACKUP_DIR=os.path.join(getConfDir(), 'backup')
-        config.LOG_DIR=os.path.join(getConfDir(), 'logs')
+        #config.LOG_DIR=os.path.join(getConfDir(), 'logs')
 
     return True
 
@@ -87,7 +87,7 @@ def initHomeConfPath():
         confDir = getConfDir()
         dataDir = os.path.join(confDir, "data")
         backupDir = os.path.join(confDir, "backup")
-        logDir = os.path.join(confDir, "logs")
+        #logDir = os.path.join(confDir, "logs")
         #mkdir and copy files
         if not os.path.exists(confDir):
             os.makedirs(dataDir)

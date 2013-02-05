@@ -19,7 +19,7 @@ Created on Mar 19, 2009
 class PwdMgmtApp(wx.App):
     def OnInit(self):
         #init logging
-        logging.basicConfig(filename=os.path.join (config.LOG_DIR, config.LOG_FILE), format='%(asctime)s %(levelname)s:%(message)s', level=logging.INFO)
+        #logging.basicConfig(filename=os.path.join (config.LOG_DIR, config.LOG_FILE), format='%(asctime)s %(levelname)s:%(message)s', level=logging.INFO)
         
         # show the authentication Dialog first 
         pwdDlg = LoginDialog(None)

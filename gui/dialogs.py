@@ -13,8 +13,9 @@ from service import *
 
 RETRY = 5
 
-#class UpgradeMessageDialog(wx.Dialog):
-    #def __init__(self,parent,id=-1,title="Upgrade Message"):
+class UpgradeMessageDialog(wx.Dialog):
+    def __init__(self,parent,id=-1,title="Upgrade Message"):
+
 
 
 class LoginDialog(wx.Dialog):
