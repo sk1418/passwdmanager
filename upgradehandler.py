@@ -5,8 +5,49 @@ import config,util,service,dao
 import os.path
 
 def __getConnection():
+    """
+    get database connection
+    """
     conn = sqlite.connect(config.CONN_PATH)
     return conn
+
+def upgrade():
+    """
+    do the upgrade logic
+    """
+    msg  = '' #return value
+    conn = __getConnection()
+    #root password
+    key  = config.getRootPwd()
+
+    if __table_exists(conn, "config"):
+        version = read_data_version(conn)
+        if version != config.VERSION:
+            update_data_version(conn)
+            # do upgrade if needed, update version 
+    else:
+        #check if Account.secret column exits
+        v10x = not __column_exists(conn, 'account','secret')
+        #do upgrade here
+        msg  = __upgrade_10x_110(key,conn,v10x)
+
+        
+        #create config table
+        sql = """
+            CREATE TABLE CONFIG ( 
+            name TEXT(200) NOT NULL, 
+            value TEXT(500) NOT NULL 
+            ); """
+        ins_sql = """insert into config(name,value) values(?,?) ;"""
+
+        cur = conn.cursor()
+        cur.execute(sql)
+        cur.execute(ins_sql,('version',config.VERSION,))
+        conn.commit()
+        cur.close()
+    return msg
+
+
 
 def __upgrade_10x_110(key, conn, v10x):
     """
@@ -74,50 +115,18 @@ def __table_exists(conn,table_name):
     return len(rows)>0
 
 def read_data_version(conn):
-    sql = "select version from config"
+    sql = "select value from config where name=?"
     cur = conn.cursor()
-    cur.execute(sql)
+    cur.execute(sql, ('version',))
     ver = cur.fetchone()[0]
     cur.close()
     return ver
 
 def update_data_version(conn):
-    sql = "update config set version=?"
+    sql = "update config set value=? where name=?"
     cur = conn.cursor()
-    cur.execute(sql,(config.VERSION,))
+    cur.execute(sql,(config.VERSION,'version',))
     cur.close()
 
-
-def upgrade():
-    msg  = '' #return value
-    conn = __getConnection()
-    #root password
-    key  = config.getRootPwd()
-
-    if __table_exists(conn, "config"):
-        version = read_data_version(conn)
-        if version != config.VERSION:
-            update_data_version(conn)
-            # do upgrade if needed, update version 
-    else:
-        #check if Account.secret column exits
-        v10x = not __column_exists(conn, 'account','secret')
-        #do upgrade here
-        msg  = __upgrade_10x_110(key,conn,v10x)
-
-        
-        #create config table
-        sql = """
-            CREATE TABLE CONFIG ( 
-            name TEXT(200) NOT NULL, 
-            value TEXT(500) NOT NULL 
-            ) """
-        ins_sql = """INSERT INTO CONFIG(NAME,VALUE) VALUES('verion','"""+config.VERSION+"""') """
-
-        cur = conn.cursor()
-        cur.execute(sql)
-        cur.execute(ins_sql)
-        cur.close()
-    return msg
 
 

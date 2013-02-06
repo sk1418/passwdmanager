@@ -92,7 +92,7 @@ def initHomeConfPath():
         if not os.path.exists(confDir):
             os.makedirs(dataDir)
             os.makedirs(backupDir)
-            os.makedirs(logDir)
+            #os.makedirs(logDir)
 
         global DEFAULT_CONF, SAMPLE_DATA
         print "copy default conf file"
