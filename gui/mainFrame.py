@@ -48,6 +48,8 @@ class MainWindow(wx.Frame):
         self.SetSize(myGui.MAIN_WINDOW_SIZE)
     
         
+        # after loading, set focus to search box
+        self.FindWindowByName(myGui.NAME_TEXTBOX_SEARCH).SetFocus()
         
     def updateStatusBar(self,lv):
             self.statusBar.SetStatusText('<=* ! *=>New Version ' + lv + ' is available. Upgrade is HIGHLY RECOMMENDED!')

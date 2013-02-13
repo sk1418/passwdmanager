@@ -1,4 +1,9 @@
 #!/usr/bin/python
+"""
+This upgrade program will only upgrade passwdManager from version 1.0.x to 1.1.0
+Since version 1.2.0, application will upgrade from 1.0.x or 1.1.0 automatically, because the 
+pycrypto library changes. Therefore this script won't be used any longer.
+"""
 
 import shutil
 import sqlite3 as sqlite
