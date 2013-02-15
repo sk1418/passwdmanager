@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=PasswdManager
+Comment=A password management tool
+Version=1.2.0
+Exec=pwm
+Terminal=false
+Icon=passwdManager.png
+Type=Application
+Categories=GNOME;Utility

@@ -9,4 +9,4 @@ pushd . > /dev/null
 cd $(dirname ${script_path}) > /dev/null
 script_path=$(pwd)
 echo "current path:"$script_path
-python passwdManager.py
+pwm

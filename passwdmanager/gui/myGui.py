@@ -1,18 +1,19 @@
+# -*- coding:utf-8 -*-
 '''
 Created on Mar 24, 2009
 
 @author: kent
 
 '''
-import wx
-import config
+import wx,os
+import passwdmanager.config as config
 
 ##################################
 # ICON path properties
 ##################################
 # icon root path
-#ICON_ROOT='../../icons/'
-ICON_ROOT='icons/'
+ICON_ROOT=os.path.join( os.path.abspath(os.path.dirname(__file__)),"../../icons/")
+#ICON_ROOT='icons/'
 
 ICON_APP_LOGO = ICON_ROOT + 'app.png'
 ICON_APP_ICON = ICON_ROOT + 'app16.png'

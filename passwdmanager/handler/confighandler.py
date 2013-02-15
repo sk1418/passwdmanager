@@ -4,23 +4,34 @@
 """
 import os, sys, shutil
 import ConfigParser
-import util
-import config
+import passwdmanager.util as util
+import passwdmanager.config as config
 
 
 
 # conf entries for Windows
-WIN_CONF_DIR='conf'
-WIN_CONF_FILE=os.path.join(WIN_CONF_DIR,'win.conf')
-WIN_BACKUP_PATH=os.path.join(WIN_CONF_DIR,'backup')
+WIN_CONF_DIR = ''
+WIN_CONF_FILE=''
+WIN_BACKUP_PATH=''
 #WIN_LOG_DIR= os.path.join(WIN_CONF_DIR,'logs')
 
-
 # Default conf file for linux
-DEFAULT_CONF = 'conf/passwdManager.conf'
-SAMPLE_DATA  = 'data/data.pmgr'
-DEFAULT_DATA_PATH= os.path.join(os.getenv("HOME") , ".passwdManager","data","data.pmgr")
+DEFAULT_CONF = ''
+SAMPLE_DATA  = ''
+DEFAULT_DATA_PATH= ''
 
+
+def init():
+    global WIN_CONF_DIR, WIN_CONF_FILE, WIN_BACKUP_PATH, DEFAULT_DATA_PATH, SAMPLE_DATA, DEFAULT_CONF
+    WIN_CONF_DIR = os.path.join(config.APP_ROOT,'conf')
+    WIN_CONF_FILE=os.path.join(WIN_CONF_DIR,'win.conf')
+    WIN_BACKUP_PATH=os.path.join(WIN_CONF_DIR,'backup')
+    #WIN_LOG_DIR= os.path.join(WIN_CONF_DIR,'logs')
+
+    # Default conf file for linux
+    DEFAULT_CONF = os.path.join(config.APP_ROOT,'conf/passwdManager.conf')
+    SAMPLE_DATA  = os.path.join(config.APP_ROOT,'data/data.pmgr')
+    DEFAULT_DATA_PATH= os.path.join(os.getenv("HOME") , ".passwdManager","data","data.pmgr")
 
 def getConfigFile():
     if util.isWindows():
@@ -32,7 +43,7 @@ def getConfigFile():
 
 def getConfDir():
     if util.isWindows():
-        return 'conf'
+        return WIN_CONF_DIR
     else:
         return os.path.join(os.getenv("HOME") , ".passwdManager")
 
@@ -95,9 +106,9 @@ def initHomeConfPath():
             #os.makedirs(logDir)
 
         global DEFAULT_CONF, SAMPLE_DATA
-        print "copy default conf file"
+        print "copy default conf file to " + confDir
         shutil.copy(DEFAULT_CONF,confDir)
-        print "copy sample data file"
+        print "copy sample data file to " + dataDir
         shutil.copy(SAMPLE_DATA, dataDir)
 
         # update the default data path

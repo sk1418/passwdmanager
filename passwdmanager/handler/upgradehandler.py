@@ -1,7 +1,7 @@
 import shutil
 import datetime
 import sqlite3 as sqlite
-import config,util,service,dao
+import passwdmanager.config as config,passwdmanager.util as util,passwdmanager.service as service,passwdmanager.dao as dao
 import os.path
 
 def __getConnection():

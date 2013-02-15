@@ -6,7 +6,7 @@ Created on Mar 27, 2009
 from dao import *
 import config
 import util
-import gui.myGui as myGui
+import passwdmanager.gui.myGui as myGui
 import datetime
 
 class RemoveTagException: pass
@@ -185,7 +185,6 @@ class PwdService(Service):
         pwdObj = pwdDao.getPwdById(id)
         masterPwd = config.getRootPwd()
         
-        
         ePassword = util.encrypt(masterPwd, password) if password else pwdObj.pwd
         eSecret = util.encrypt(masterPwd,secret) if secret else ""
         eUsername = util.encrypt(masterPwd, account) if account else ""
@@ -215,7 +214,7 @@ class PwdService(Service):
         
          # encode account & password
         master = config.getRootPwd()
-        ePassword = util.encrypt(master, password)
+        ePassword = util.encrypt(master, password.decode("utf-8"))
         eSecret = util.encrypt(master,secret) if secret else ""
         eAccount = util.encrypt(master, account) if account else ""
         current = datetime.datetime.today()

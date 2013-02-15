@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 from Crypto.Cipher import CAST
 from Crypto.Hash import MD5
 from Crypto import Random
@@ -15,9 +14,8 @@ import config
 #algorithm
 MODE = CAST.MODE_CFB
 
-
-
 def __getKeyObject(key, iv):
+    global MODE
     cipher = CAST.new(key, MODE, iv)
     return cipher
 
@@ -63,36 +61,49 @@ def encrypt(key, msg):
     @param key: the password (master password)
     @param msg: plain message need to be encrypted
     '''
-     
-    iv = Random.new().read(CAST.block_size)
+    iv =Random.new().read(CAST.block_size)
     cipher = __getKeyObject(key,iv)
-    
     #encrypt
-    after = obj.encrypt(iv, msg)    
-    
+    after = cipher.encrypt(iv+msg.encode('utf-8'))    
     #convert to string
     s = binascii.b2a_hex(after).upper()
-    
     return s
 
-
     
-#msg was string, should convert into bin first    
 def decrypt(key, msg):
     '''
     Decrypt message
     @param key: the password (master password)
     @param msg: encrypted message need to be decrypted
     '''
-    #decoding
+    #decoding, msg was string, should convert into bin first    
     encrypted_msg   = binascii.a2b_hex(msg)
     eiv = encrypted_msg[:CAST.block_size]
 
     ciphertext = encrypted_msg[CAST.block_size:]
     cipher = __getKeyObject(key,eiv)
     #decrypt
-    plain = cipher.decrypt(ciphertext)
+    plain = cipher.decrypt(ciphertext).decode('utf-8')
+
     return plain
+
+def reencrypt_with_pycrp26(key,ct):
+    """
+        decrypt and re-encrypt with pycrypto2.6 library
+        used only for upgrading from 1.1.0 or 1.0.x
+    """
+    global MODE
+    oiv="\x00\x00\x00\x00\x00\x00\x00\x00"
+    ocipher = __getKeyObject(key,oiv)
+    old_msg = binascii.a2b_hex(ct)
+    plaintext = ocipher.decrypt(old_msg)
+
+    iv = Random.new().read(CAST.block_size)
+    cipher = __getKeyObject(key,iv)
+    msg = cipher.encrypt(iv+plaintext)
+    newEncrypted = binascii.b2a_hex(msg).upper()
+    return newEncrypted
+
 
 def getLatestVersion(versionUrl):
     #proxy is only for testing
@@ -131,20 +142,3 @@ def backupDB_with_fn(dest_filename):
     dest = config.BACKUP_DIR
     destFile = os.path.join(dest,dest_filename)
     shutil.copy(src, destFile)
-
-def reencrypt_with_pycrp26(key,ct):
-    """
-        decrypt and re-encrypt with pycrypto2.6 library
-    """
-    global MODE
-    oiv="\x00\x00\x00\x00\x00\x00\x00\x00"
-    ocipher = __getKeyObject(key,oiv)
-    old_msg = binascii.a2b_hex(ct)
-    plaintext = ocipher.decrypt(old_msg)
-
-    iv = Random.new().read(CAST.block_size)
-    cipher = __getKeyObject(key,iv)
-    msg = cipher.encrypt(iv+plaintext)
-    newEncrypted = binascii.b2a_hex(msg).upper()
-    return newEncrypted
-

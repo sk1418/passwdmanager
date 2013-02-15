@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-import myGui,util,config
+import myGui
+import passwdmanager.util as util
+import passwdmanager.config as config
 import wx,sys
-from service import TagService, PwdService
+from passwdmanager.service import TagService, PwdService
 from wx.lib.mixins.listctrl import  ListCtrlAutoWidthMixin
 from dialogs import *
 from threading import Thread
