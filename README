@@ -9,13 +9,18 @@ Requirement to run passwd manager:
 ------------------------------------------------
 -python 2.5.*
 -wxPython 2.8
--pycrypto 
+-pycrypto 2.6
 
+
+
+Installation (Linux)
+------------------------------------------------
+sudo python setup.py install
 
 
 Command to start application
 ------------------------------------------------
-$name@Host:APPL_HOME_DIR/python passwdManager.py
+pwmanager
 
 
 
@@ -26,7 +31,9 @@ DEFAULT MASTER PASSWORD
 
 Upgrade
 ------------------------------------------------
-1.0.x to 1.1.x upgrade:
+since version 1.2.0, upgrade the application by installation new version.
+
+1.0.x to 1.1.x upgrade :
 
 using upgrade tool <appHome>/upgrade.py to upgrade
 
@@ -45,10 +52,8 @@ v1.2.0
 * using pycrypto 2.6 (auto upgrade with backup)
 * code cleaning
 * auto focus search textbox when entering the application
-* Feature: backup
+* Feature: backup(?)
 * Feature: data and config file under $HOME/.passwdManager (Linux)
-* [TODO] : access report
-* [TODO] : logging
 
 v1.1.0
 * some improvement on GUI
