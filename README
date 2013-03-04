@@ -2,25 +2,26 @@ Passwd Manager README FILE
 
 Project Home
 ------------------------------------------------
-http://code.google.com/p/passwdmanager/
+http://github.com/sk1418/passwdmanager/
 
 
 Requirement to run passwd manager:
 ------------------------------------------------
--python 2.5.*
--wxPython 2.8
--pycrypto 2.6
+
+- python 2.5.*
+- wxPython 2.8
+- pycrypto 2.6
 
 
 
 Installation (Linux)
 ------------------------------------------------
-sudo python setup.py install
+	sudo python setup.py install
 
 
 Command to start application
 ------------------------------------------------
-pwmanager
+	pwmanager
 
 
 
@@ -31,7 +32,7 @@ DEFAULT MASTER PASSWORD
 
 Upgrade
 ------------------------------------------------
-since version 1.2.0, upgrade the application by installation new version.
+**since version 1.2.0, upgrade the application by installation new version.**
 
 1.0.x to 1.1.x upgrade :
 
@@ -52,7 +53,8 @@ v1.2.0
 * using pycrypto 2.6 (auto upgrade with backup)
 * code cleaning
 * auto focus search textbox when entering the application
-* Feature: backup(?)
+* introduce new config file
+* Feature: backup
 * Feature: data and config file under $HOME/.passwdManager (Linux)
 
 v1.1.0
@@ -82,3 +84,5 @@ v1.0.1
 
 v1.0.0
 1st release
+
+
