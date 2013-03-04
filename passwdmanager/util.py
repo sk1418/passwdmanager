@@ -8,7 +8,7 @@ import string, random
 import os,sys
 import shutil, datetime
 import config
-
+import glob
 
 
 #algorithm
@@ -126,13 +126,17 @@ def backupDB():
     """
     backup data file to backup DIR
     """
-    #check backup size, if reached, delete the oldest backup
-    #TODO
     #do file coping
     src = config.CONN_PATH
     srcfn = os.path.basename(src)
-    targetfn = srcfn+"."+ datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    targetfn = srcfn+"_"+ datetime.datetime.now().strftime('%Y%m%d%H%M%S') + ".bak"
     backupDB_with_fn(targetfn)
+
+    #check backup size, if reached, delete the oldest backup
+    flist = glob.glob(os.path.join(config.BACKUP_DIR,"*.bak"))
+    flist.sort()
+    if flist and len(flist) >= config.BACKUP_SIZE:
+        map(lambda x: os.remove(x), flist[0:-config.BACKUP_SIZE])
 
 
     

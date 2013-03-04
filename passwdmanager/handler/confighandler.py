@@ -72,7 +72,7 @@ def loadConfig():
     #load options from config file
     config.CONN_PATH = cf.get("settings","data.path")
     config.BACKUP = cf.getboolean("settings","backup.required")
-    config.BACKUP_SIZE = cf.getint("settings", "backup.size")
+    config.BACKUP_SIZE = cf.getint("settings", "backup.size") if cf.getint("settings", "backup.size") >0 else 3
 
     # set backup/log dir in config
     if util.isWindows():
@@ -83,6 +83,9 @@ def loadConfig():
     else:
         config.BACKUP_DIR=os.path.join(getConfDir(), 'backup')
         #config.LOG_DIR=os.path.join(getConfDir(), 'logs')
+
+    #backup after loading config
+    util.backupDB()
 
     return True
 
