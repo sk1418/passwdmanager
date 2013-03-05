@@ -7,6 +7,7 @@ from passwdmanager.service import TagService, PwdService
 from wx.lib.mixins.listctrl import  ListCtrlAutoWidthMixin
 from dialogs import *
 from threading import Thread
+
 #NewPwdDialog,ChgRootPwdDialog,NewTagDialog,EditTagDialog
 
 '''
@@ -17,6 +18,7 @@ Created on Mar 23, 2009
 class MainWindow(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None, - 1, config.APP_NAME + " " + config.VERSION)
+        
         # values for the listCtrl
         self.pwdList = []
         self.searchResult = []
@@ -193,11 +195,13 @@ class MainWindow(wx.Frame):
                     ('Help',            (-1, 'Check updates','Check update...',self.onUpdate,myGui.ICON_MENU_UPDATE),
                                         (-1, 'About','About Passwd Manager...',self.onAbout,myGui.ICON_MENU_ABOUT))
                     )
-        menuBar = wx.MenuBar(wx.MB_DOCKABLE);
+        
+        menuBar = wx.MenuBar(wx.MB_DOCKABLE);        
         for entry in menuData:
             menuLabel = entry[0]
             menuItems = entry[1:]        
             menuBar.Append(self.__getMenu(menuItems),menuLabel)
+            
         self.SetMenuBar(menuBar)
         
     
