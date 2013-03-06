@@ -5,55 +5,55 @@ Created on Mar 24, 2009
 @author: kent
 
 '''
-import wx,os
+from os import path
+import wx
 import passwdmanager.config as config
 
 ##################################
 # ICON path properties
 ##################################
 # icon root path
-ICON_ROOT=os.path.join( os.path.abspath(os.path.dirname(__file__)),"../../icons/")
-#ICON_ROOT='icons/'
+ICON_ROOT=path.join(config.APP_ROOT,"icons")
 
-ICON_APP_LOGO = ICON_ROOT + 'app.png'
-ICON_APP_ICON = ICON_ROOT + 'app16.png'
-ICON_APP_UPDATE = ICON_ROOT + 'update.png'
+ICON_APP_LOGO = path.join(ICON_ROOT, 'app.png')
+ICON_APP_ICON = path.join(ICON_ROOT, 'app16.png')
+ICON_APP_UPDATE = path.join(ICON_ROOT, 'update.png')
 
 
 #tag icon used in main window
-ICON_TAG_CUSTOM = ICON_ROOT + 'tagM.png'
-ICON_TAG_ALL = ICON_ROOT + 'allTags.png'
-ICON_TAG_TRASH = ICON_ROOT + 'trash.png'
-ICON_TAG_SEARCH = ICON_ROOT + 'result.png'
-ICON_TAG_FAV = ICON_ROOT + 'favs.png'
+ICON_TAG_CUSTOM = path.join(ICON_ROOT, 'tagM.png')
+ICON_TAG_ALL = path.join(ICON_ROOT, 'allTags.png')
+ICON_TAG_TRASH = path.join(ICON_ROOT, 'trash.png')
+ICON_TAG_SEARCH = path.join(ICON_ROOT, 'result.png')
+ICON_TAG_FAV = path.join(ICON_ROOT, 'favs.png')
 
-ICON_TOOLBAR_ADD = ICON_ROOT + 'add.png'
-ICON_TOOLBAR_QUIT = ICON_ROOT + 'exit.png'
-ICON_TOOLBAR_SEARCH = ICON_ROOT + 'search.png'
-ICON_TOOLBAR_REMOVE = ICON_ROOT + 'remove.png'
+ICON_TOOLBAR_ADD = path.join(ICON_ROOT, 'add.png')
+ICON_TOOLBAR_QUIT = path.join(ICON_ROOT, 'exit.png')
+ICON_TOOLBAR_SEARCH = path.join(ICON_ROOT, 'search.png')
+ICON_TOOLBAR_REMOVE = path.join(ICON_ROOT, 'remove.png')
 ICON_TOOLBAR_TRASH = ICON_TAG_TRASH
-ICON_TOOLBAR_EMPTYTRASH = ICON_ROOT + 'empty.png'
-ICON_TOOLBAR_DETAIL = ICON_ROOT + 'detail.png'
-ICON_TOOLBAR_RECOVER = ICON_ROOT + 'recover.png'
-ICON_TOOLBAR_ROOTPWD = ICON_ROOT + 'rootpwd.png'
-ICON_TOOLBAR_EDIT = ICON_ROOT + 'edit.png'
-ICON_TOOLBAR_PWDGEN =ICON_ROOT + 'pwdgen.png'
+ICON_TOOLBAR_EMPTYTRASH = path.join(ICON_ROOT, 'empty.png')
+ICON_TOOLBAR_DETAIL = path.join(ICON_ROOT, 'detail.png')
+ICON_TOOLBAR_RECOVER = path.join(ICON_ROOT, 'recover.png')
+ICON_TOOLBAR_ROOTPWD = path.join(ICON_ROOT, 'rootpwd.png')
+ICON_TOOLBAR_EDIT = path.join(ICON_ROOT, 'edit.png')
+ICON_TOOLBAR_PWDGEN =path.join(ICON_ROOT, 'pwdgen.png')
 
-ICON_MENU_ADD = ICON_ROOT + 'add16.png'
-ICON_MENU_REMOVE = ICON_ROOT + 'remove16.png'
-ICON_MENU_QUIT = ICON_ROOT + 'exit16.png'
-ICON_MENU_DETAIL = ICON_ROOT + 'detail16.png'
-ICON_MENU_EMPTYTRASH = ICON_ROOT + 'empty16.png'
-ICON_MENU_ABOUT = ICON_ROOT + 'about16.png'
-ICON_MENU_UPDATE = ICON_ROOT + 'update16.png'
-ICON_MENU_RECOVER = ICON_ROOT + 'recover16.png'
-ICON_MENU_TRASH = ICON_ROOT + 'trash16.png'
-ICON_MENU_PASTE = ICON_ROOT + 'paste16.png'
-ICON_MENU_ROOTPWD = ICON_ROOT + 'rootpwd16.png'
-ICON_MENU_NEWTAG =ICON_ROOT + 'newtag16.png'
-ICON_MENU_DELTAG =ICON_ROOT + 'deltag16.png'
-ICON_MENU_EDIT =ICON_ROOT + 'edit16.png'
-ICON_MENU_PWDGEN =ICON_ROOT + 'pwdgen16.png'
+ICON_MENU_ADD = path.join(ICON_ROOT, 'add16.png')
+ICON_MENU_REMOVE = path.join(ICON_ROOT, 'remove16.png')
+ICON_MENU_QUIT = path.join(ICON_ROOT, 'exit16.png')
+ICON_MENU_DETAIL = path.join(ICON_ROOT, 'detail16.png')
+ICON_MENU_EMPTYTRASH = path.join(ICON_ROOT, 'empty16.png')
+ICON_MENU_ABOUT = path.join(ICON_ROOT, 'about16.png')
+ICON_MENU_UPDATE = path.join(ICON_ROOT, 'update16.png')
+ICON_MENU_RECOVER = path.join(ICON_ROOT, 'recover16.png')
+ICON_MENU_TRASH = path.join(ICON_ROOT, 'trash16.png')
+ICON_MENU_PASTE = path.join(ICON_ROOT, 'paste16.png')
+ICON_MENU_ROOTPWD = path.join(ICON_ROOT, 'rootpwd16.png')
+ICON_MENU_NEWTAG =path.join(ICON_ROOT, 'newtag16.png')
+ICON_MENU_DELTAG =path.join(ICON_ROOT, 'deltag16.png')
+ICON_MENU_EDIT =path.join(ICON_ROOT, 'edit16.png')
+ICON_MENU_PWDGEN =path.join(ICON_ROOT, 'pwdgen16.png')
 
 
 

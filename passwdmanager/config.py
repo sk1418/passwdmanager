@@ -4,7 +4,8 @@ Created on Apr 3, 2009
 
 @author: kent
 '''
-import os, sys, shutil
+from os import path
+import  sys, shutil
 import ConfigParser
 import util,logging
 
@@ -38,6 +39,11 @@ LATEST_VERSION = None
 # APPL name
 APP_NAME       = 'Passwd Manager'
 
+#APP Root path
+# using this complicated assignment because the exe file by py2exe doesn't 
+# work with path.dirname(__file__)
+APP_ROOT =  path.dirname(unicode(sys.executable, sys.getfilesystemencoding( ))) \
+        if hasattr(sys, "frozen") else path.abspath(path.join(path.dirname(__file__), "../"))
 
 def setLatestVersion(version):
     global LATEST_VERSION

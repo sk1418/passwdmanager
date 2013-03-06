@@ -45,8 +45,6 @@ class PwdMgmtApp(wx.App):
      
 
 if __name__ == '__main__':
-    #set application root path
-    config.APP_ROOT = os.path.abspath(os.path.dirname(__file__))
 
     #init the confighandler
     confighandler.init()

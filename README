@@ -17,6 +17,7 @@ Requirement to run passwd manager:
 Installation (Linux)
 ------------------------------------------------
 	sudo python setup.py install
+	For Archlinux user: The passwdManager is also available in AUR
 
 
 Command to start application

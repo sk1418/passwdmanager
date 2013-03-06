@@ -1,7 +1,10 @@
 import shutil
 import datetime
 import sqlite3 as sqlite
-import passwdmanager.config as config,passwdmanager.util as util,passwdmanager.service as service,passwdmanager.dao as dao
+import passwdmanager.config as config
+import passwdmanager.util as util
+import passwdmanager.service as service
+import passwdmanager.dao as dao
 import os.path
 
 def __getConnection():
@@ -88,7 +91,7 @@ def __upgrade_10x_110(key, conn, v10x):
 
     cur.close()
     cur2.close()
-    msg = "Upgraded from old version({0}), data file was backuped at {1}".format('1.0.x' if v10x else '1.1.0', os.path.join(config.BACKUP_DIR,filename))
+    msg = "Data file is converted from old version({0}). Backup could be found at {1}".format('1.0.x' if v10x else '1.1.0', os.path.join(config.BACKUP_DIR,filename))
     return msg
 
 
