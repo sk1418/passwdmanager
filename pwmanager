@@ -1,10 +1,8 @@
 #!/usr/bin/python
 import wx
-import passwdmanager.config as config
 import passwdmanager.handler.confighandler as confighandler
 import passwdmanager.handler.upgradehandler as upgradehandler
 import os
-import logging
 from passwdmanager.gui.mainFrame import  MainWindow, UpdateChecker
 from passwdmanager.gui.dialogs import LoginDialog
 from passwdmanager.gui.myGui import showInfoDialog
