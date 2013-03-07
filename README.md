@@ -2,8 +2,31 @@ Passwd Manager README FILE
 
 #Project Home
 
-http://github.com/sk1418/passwdmanager/
+[project @ Github](http://github.com/sk1418/passwdmanager/)
 
+#Introduction
+Passwd Manager is a cross-platform password management tool.
+
+#Features
+As a password managment tool, Passwd Manager keeps as simple as possible. Currently Passwd Manager has following features:
+
+- Master password encrypted with MD5
+- all password and username/account name entries encrypted with CAST algorithm
+- flexible tags
+- with random password generator
+- simple,fast search
+- internationalized note encryption (secret text)
+- Simple enough huh? ;)
+
+#Screenshots
+
+![mainWindow](https://lh6.googleusercontent.com/-PCZoEDb-kqs/TpIc6TtKUHI/AAAAAAAAGDY/9iiZ-01l3to/s800/main.png,"main windows")
+
+![AccountDetail](https://lh5.googleusercontent.com/-nYD2RQ_J9Cw/TpIc6ZRhHuI/AAAAAAAAGDY/V9ArKO8WgKw/s800/detail.png,"AccountDetail")
+
+![PwGenerator](https://lh5.googleusercontent.com/-yYP6rQCXzg8/TpIc6TRFwnI/AAAAAAAAGDY/KULyf9pCYzE/s800/generator.png,"Password Generator")
+
+![Windows](https://lh3.googleusercontent.com/-szqroxUVUJE/TpIeQQsnckI/AAAAAAAAGDY/bFyzCvjlAv8/s800/win.png,"under Windows")
 
 #Requirement to run passwd manager:
 
@@ -22,6 +45,8 @@ http://github.com/sk1418/passwdmanager/
 #Command to start application
 
 	pwmanager
+or
+    find the launcher in menu 
 
 
 
@@ -34,22 +59,23 @@ http://github.com/sk1418/passwdmanager/
 
 **since version 1.2.0, upgrade the application by installation new version.**
 
-- 1.0.x to 1.1.x upgrade :
+- 1.0.x to 1.1.x upgrade (deprecated):
 
-using upgrade tool <appHome>/upgrade.py to upgrade
+using upgrade tool `<appHome>/passwdmanager/upgrade.py `to upgrade
 
-Else:
-1 Exit the application
-2 Backup your data directory. (<appHome>/data)
-3 Download and extract the new version
-4 overwrite the data directory with your backup
-5 start the application, check the version number via Help->About
+##for Windows users
+1. Exit the application
+2. Backup your data directory. (<appHome>/data)
+3. Download and extract the new version
+4. overwrite the data directory with your backup
+5. start the application, check the version number via Help->About
 
 
 
 #change logs
 
 v1.2.0
+ 
 * using pycrypto 2.6 (auto upgrade with backup)
 * code cleaning
 * auto focus search textbox when entering the application
@@ -58,17 +84,20 @@ v1.2.0
 * Feature: data and config file under $HOME/.passwdManager (Linux)
 
 v1.1.0
+
 * some improvement on GUI
 * code cleaning
 * Feature: secret text
 * Feature: username/accountname is also stored with encryption.
 
 v1.0.4
+
 * Feature: Password Generator
 * Tag removing: now tag still in used can also be removed.
 * Search box :  pressing <Enter> key in search textbox will trigger the search 
 
 v1.0.3
+
 * Feature:Update notification (popup & statusbar)
 * Feature:Update checking menu item
 * Current chosen tag will be selected automatically in Add New Account dialog
@@ -76,13 +105,16 @@ v1.0.3
 
 
 v1.0.2
+
 * BugFix: [WINDOWS] UTF-8 encoding problem when printing the tag names
 
 v1.0.1
+
 * BugFix: [WINDOWS] click 'Exit' in Login Dialog, application exits with error message.
 * BugFix: [ALL] Edit Account Dialog, error occurs when doing the user input validation
 
 v1.0.0
-1st release
+
+* 1st release
 
 
