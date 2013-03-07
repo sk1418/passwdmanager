@@ -1,41 +1,40 @@
 Passwd Manager README FILE
 
-Project Home
-------------------------------------------------
+#Project Home
+
 http://github.com/sk1418/passwdmanager/
 
 
-Requirement to run passwd manager:
-------------------------------------------------
+#Requirement to run passwd manager:
 
-- python 2.5.*
+- python 2.6.x
 - wxPython 2.8
 - pycrypto 2.6
 
 
 
-Installation (Linux)
-------------------------------------------------
+#Installation (Linux)
+
 	sudo python setup.py install
 	For Archlinux user: The passwdManager is also available in AUR
 
 
-Command to start application
-------------------------------------------------
+#Command to start application
+
 	pwmanager
 
 
 
-DEFAULT MASTER PASSWORD
-------------------------------------------------
-"password" (without quotation marks)
+#DEFAULT MASTER PASSWORD
+
+`"password"` (without the quotes)
 
 
-Upgrade
-------------------------------------------------
+#Upgrade
+
 **since version 1.2.0, upgrade the application by installation new version.**
 
-1.0.x to 1.1.x upgrade :
+- 1.0.x to 1.1.x upgrade :
 
 using upgrade tool <appHome>/upgrade.py to upgrade
 
@@ -48,8 +47,8 @@ Else:
 
 
 
-change logs
-------------------------------------------------
+#change logs
+
 v1.2.0
 * using pycrypto 2.6 (auto upgrade with backup)
 * code cleaning

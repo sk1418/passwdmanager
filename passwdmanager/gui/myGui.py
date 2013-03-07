@@ -226,7 +226,7 @@ Upgrade is HIGHLY RECOMMENDED!
     
 Click the link below to download and upgrade."""
     info = wx.AboutDialogInfo()
-    info.SetName("New Update Available!")
+    info.SetName("New Version Available!")
     info.SetIcon(wx.Icon(ICON_APP_UPDATE, wx.BITMAP_TYPE_PNG))
     info.SetDescription(description)
     info.SetWebSite('http://code.google.com/p/passwdmanager/downloads/list')
@@ -256,7 +256,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"""
     info.SetVersion(config.VERSION)
     info.SetDescription(description)
     info.SetCopyright('(C) 2009 Kai Yuan')
-    info.SetWebSite('http://code.google.com/p/passwdmanager/')
+    info.SetWebSite('https://github.com/sk1418/passwdmanager')
 #    info.SetLicence(licence)
 #    info.AddDeveloper('Kai Yuan')
 #    info.AddDocWriter('Kai Yuan')
