@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     # load config
     if not confighandler.loadConfig():
-        print "your config file cannot be loaded. Did you change it?"
+        print "your config file cannot be loaded."
         exit(1)
     
     #start application GUI

@@ -35,9 +35,9 @@ __ROOT_PWD     = ''
 CONN_PATH      = '' #filled by confighandler
 
 #backup option
-BACKUP_DIR = '' # filled by confighandler
-BACKUP         = True
-BACKUP_SIZE    = 1
+BACKUP_DIR      = '' # filled by confighandler
+BACKUP_REQUIRED = True
+BACKUP_SIZE     = 1
 
 #log file dir
 # logging information will go to database later

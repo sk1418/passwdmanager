@@ -70,6 +70,8 @@ using upgrade tool `<appHome>/passwdmanager/upgrade.py `to upgrade
 4. overwrite the data directory with your backup
 5. start the application, check the version number via Help->About
 
+#Tips
+- change the `data.path` in  `$HOME/.passwdManager/passwdManager.conf` (`$APP_HOME/conf/win.conf` on Windows) to some cloud storage (Dropbox for example) managed directory, your data file would be automatically synced. Useful when working on different computers.
 
 
 #change logs
@@ -80,7 +82,7 @@ v1.2.0
 * code cleaning
 * auto focus search textbox when entering the application
 * introduce new config file
-* Feature: backup
+* Feature: auto backup
 * Feature: data and config file under $HOME/.passwdManager (Linux)
 
 v1.1.0
