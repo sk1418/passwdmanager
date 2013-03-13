@@ -19,7 +19,7 @@ import glob
 setup(
     name = 'passwdManager',
     version = '1.2.0',
-    install_requires='wxpython',
+    install_requires=[ 'wxpython>=2.8','pycrypto>=2.6' ]
     packages = find_packages(),
     data_files=[('icons',glob.glob("icons/*.*")),
             ('data',glob.glob('data/*.pmgr')),

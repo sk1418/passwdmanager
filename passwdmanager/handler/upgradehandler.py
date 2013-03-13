@@ -89,24 +89,22 @@ def __upgrade_10x_110(key, conn, v10x):
         #version 1.0.x, create secret column is required
         sql_add_secret = """ ALTER TABLE ACCOUNT ADD COLUMN secret TEXT """
         cur.execute(sql_add_secret)
-    else:
-        sql = 'select id,  username,password, secret FROM ACCOUNT'
-        upsql = 'update Account set username=?, password=?, secret=? where id=?'
-        cur = conn.cursor()
-        cur.execute(sql)
+    sql = 'select id,  username,password, secret FROM ACCOUNT'
+    upsql = 'update Account set username=?, password=?, secret=? where id=?'
+    cur = conn.cursor()
+    cur.execute(sql)
 
-        cur2 =conn.cursor()
-        for row in cur.fetchall():
-            (id,uid,pwd,secret) = row
+    cur2 =conn.cursor()
+    for row in cur.fetchall():
+        (id,uid,pwd,secret) = row
 
-            newUid=util.encrypt(key ,uid) if v10x else util.reencrypt_with_pycrp26(key, uid)
-            newPwd = util.reencrypt_with_pycrp26(key,pwd)
-            newSecret = util.reencrypt_with_pycrp26(key,secret) if not v10x else secret
-            
-            cur2.execute(upsql,(newUid,newPwd,newSecret, id,))
-
-    cur.close()
+        newUid=util.encrypt(key ,uid) if v10x else util.reencrypt_with_pycrp26(key, uid)
+        newPwd = util.reencrypt_with_pycrp26(key,pwd)
+        newSecret = util.reencrypt_with_pycrp26(key,secret) if not v10x else secret
+        
+        cur2.execute(upsql,(newUid,newPwd,newSecret, id,))
     cur2.close()
+    cur.close()
     msg = "Data file is converted from old version({0}). Backup could be found at {1}".format('1.0.x' if v10x else '1.1.0', os.path.join(config.BACKUP_DIR,filename))
     return msg
 
