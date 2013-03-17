@@ -16,6 +16,7 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 - with random password generator
 - simple,fast search
 - internationalized note encryption (secret text)
+- auto-backup up to most recent x times of application starts. (x is configurable)
 - Simple enough huh? ;)
 
 #Screenshots
@@ -34,7 +35,10 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 - wxPython 2.8
 - pycrypto 2.6
 
+#Download
 
+- Source code downloading: simple via github
+- All-in-one binary package for windows, please click[ here ](https://code.google.com/p/passwdmanager/downloads/list)
 
 #Installation (Linux)
 
@@ -63,9 +67,9 @@ or
 
 using upgrade tool `<appHome>/passwdmanager/upgrade.py `to upgrade
 
-##for Windows users
+##for Windows user
 1. Exit the application
-2. Backup your data directory. (<appHome>/data)
+2. Backup your data directory and config directory. (`<appHome>/data and conf`)
 3. Download and extract the new version
 4. overwrite the data directory with your backup
 5. start the application, check the version number via Help->About
