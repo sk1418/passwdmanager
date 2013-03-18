@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # PasswdManager -- Password management tool
-# Copyright (C) 2008 -- 2013 Kai Yuan <kent.yuan@gmail.com>
+# Copyright (C) 2009 -- 2013 Kai Yuan <kent.yuan@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ import passwdmanager.config as config
 # ICON path properties
 ##################################
 # icon root path
-ICON_ROOT=path.join(config.APP_ROOT,"icons")
+ICON_ROOT=path.join(config.PKG_ROOT,"icons")
 
 ICON_APP_LOGO = path.join(ICON_ROOT, 'app.png')
 ICON_APP_ICON = path.join(ICON_ROOT, 'app16.png')

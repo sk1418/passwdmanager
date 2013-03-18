@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # PasswdManager -- Password management tool
-# Copyright (C) 2008 -- 2013 Kai Yuan <kent.yuan@gmail.com>
+# Copyright (C) 2009 -- 2013 Kai Yuan <kent.yuan@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

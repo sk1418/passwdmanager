@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # PasswdManager -- Password management tool
-# Copyright (C) 2008 -- 2013 Kai Yuan <kent.yuan@gmail.com>
+# Copyright (C) 2009 -- 2013 Kai Yuan <kent.yuan@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -58,8 +58,8 @@ APP_NAME       = 'Passwd Manager'
 #APP Root path
 # using this complicated assignment because the exe file by py2exe doesn't 
 # work with path.dirname(__file__)
-APP_ROOT =  path.dirname(unicode(sys.executable, sys.getfilesystemencoding( ))) \
-        if hasattr(sys, "frozen") else path.abspath(path.join(path.dirname(__file__), "../"))
+PKG_ROOT =  path.dirname(unicode(sys.executable, sys.getfilesystemencoding( ))) \
+        if hasattr(sys, "frozen") else path.abspath(path.join(path.dirname(__file__)))
 
 def setLatestVersion(version):
     global LATEST_VERSION

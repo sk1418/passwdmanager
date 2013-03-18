@@ -1,5 +1,5 @@
 # PasswdManager -- Password management tool
-# Copyright (C) 2008 -- 2013 Kai Yuan <kent.yuan@gmail.com>
+# Copyright (C) 2009 -- 2013 Kai Yuan <kent.yuan@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@ from distutils.core import setup
 import glob
 import py2exe
 
-setup(windows=[{"script":"pwmanager","icon_resources":[(1,"icons/pm.ico")]}], 
-      data_files=[("data",glob.glob("data/*.*")),
-                  ("icons",glob.glob("icons/*.png")),
-                  ("conf",glob.glob("conf/*.*")),
-                  ("backup",glob.glob("backup/*.*")),
+setup(windows=[{"script":"pwmanager","icon_resources":[(1,"passwdmanager/icons/pm.ico")]}], 
+      data_files=[("data",glob.glob("passwdmanager/data/*.*")),
+                  ("icons",glob.glob("passwdmanager/icons/*.png")),
+                  ("conf",glob.glob("passwdmanager/conf/*.*")),
+                  ("backup",glob.glob("passwdmanager/backup/*.*")),
                   ] 
       )

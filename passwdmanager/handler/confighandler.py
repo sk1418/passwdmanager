@@ -1,5 +1,5 @@
 # PasswdManager -- Password management tool
-# Copyright (C) 2008 -- 2013 Kai Yuan <kent.yuan@gmail.com>
+# Copyright (C) 2009 -- 2013 Kai Yuan <kent.yuan@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,15 +39,15 @@ DEFAULT_DATA_PATH= ''
 
 def init():
     global WIN_CONF_DIR, WIN_CONF_FILE, WIN_BACKUP_PATH, DEFAULT_DATA_PATH, SAMPLE_DATA, DEFAULT_CONF
-    WIN_CONF_DIR = os.path.join(config.APP_ROOT,'conf')
+    WIN_CONF_DIR = os.path.join(config.PKG_ROOT,'conf')
     WIN_CONF_FILE=os.path.join(WIN_CONF_DIR,'win.conf')
-    WIN_BACKUP_PATH=os.path.join(config.APP_ROOT,'backup')
+    WIN_BACKUP_PATH=os.path.join(config.PKG_ROOT,'backup')
     #WIN_LOG_DIR= os.path.join(WIN_CONF_DIR,'logs')
 
     # Default conf file for linux
     
-    DEFAULT_CONF = os.path.join(config.APP_ROOT,'conf/passwdManager.conf')
-    SAMPLE_DATA  = os.path.join(config.APP_ROOT,'data/data.pmgr')
+    DEFAULT_CONF = os.path.join(config.PKG_ROOT,'conf/passwdManager.conf')
+    SAMPLE_DATA  = os.path.join(config.PKG_ROOT,'data/data.pmgr')
     if not util.isWindows():
 	    DEFAULT_DATA_PATH= os.path.join(os.getenv("HOME") , ".passwdManager","data","data.pmgr")
     else:
