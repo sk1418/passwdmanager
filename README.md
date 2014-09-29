@@ -43,7 +43,8 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 #Installation (Linux)
 
 	sudo python setup.py install
-	For Archlinux user: The passwdManager is also available in AUR
+	For Archlinux user: The passwdManager is also available in AUR, package name is `passwdManager-git`
+
 
 
 #Command to start application
