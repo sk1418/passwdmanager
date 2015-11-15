@@ -43,21 +43,17 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 #Installation (Linux)
 
 	sudo python setup.py install
-	For Archlinux user: The passwdManager is also available in AUR, package name is `passwdManager-git`
 
 
+## For Archlinux user
 
-#Command to start application
+The passwdmanager is available in AUR, for stable version:
+	
+	yaourt -S passwdmanager
 
-	pwmanager
-or
-    find the launcher in menu 
+for git version:
 
-
-
-#DEFAULT MASTER PASSWORD
-
-`"password"` (without the quotes)
+	yaourt -S passwdmanager-git
 
 
 #Upgrade
@@ -78,6 +74,16 @@ using upgrade tool `<appHome>/passwdmanager/upgrade.py `to upgrade
 #Tips
 - change the `data.path` in  `$HOME/.passwdManager/passwdManager.conf` (`$APP_HOME/conf/win.conf` on Windows) to some cloud storage (Dropbox for example) managed directory, your data file would be automatically synced. Useful when working on different computers.
 
+#Command to start the application
+
+	pwmanager
+
+or find the launcher in menu 
+
+
+#DEFAULT MASTER PASSWORD
+
+`"password"` (without the quotes)
 
 #change logs
 
