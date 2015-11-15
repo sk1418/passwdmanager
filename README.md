@@ -21,13 +21,13 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 
 #Screenshots
 
-![mainWindow](https://lh6.googleusercontent.com/-PCZoEDb-kqs/TpIc6TtKUHI/AAAAAAAAGDY/9iiZ-01l3to/s800/main.png,"main windows")
+![mainWindow](https://raw.github.com/sk1418/sharedResources/master/passwdmanager/passwd1.png)
 
-![AccountDetail](https://lh5.googleusercontent.com/-nYD2RQ_J9Cw/TpIc6ZRhHuI/AAAAAAAAGDY/V9ArKO8WgKw/s800/detail.png,"AccountDetail")
+![accountDetails](https://raw.github.com/sk1418/sharedResources/master/passwdmanager/passwd2.png)
 
-![PwGenerator](https://lh5.googleusercontent.com/-yYP6rQCXzg8/TpIc6TRFwnI/AAAAAAAAGDY/KULyf9pCYzE/s800/generator.png,"Password Generator")
+![pwdGenerator](https://raw.github.com/sk1418/sharedResources/master/passwdmanager/passwd3.png)
 
-![Windows](https://lh3.googleusercontent.com/-szqroxUVUJE/TpIeQQsnckI/AAAAAAAAGDY/bFyzCvjlAv8/s800/win.png,"under Windows")
+![addAccount](https://raw.github.com/sk1418/sharedResources/master/passwdmanager/passwd4.png)
 
 #Requirement to run passwd manager:
 
