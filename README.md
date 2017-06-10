@@ -1,13 +1,13 @@
 Passwd Manager README FILE
 
-#Project Home
+# Project Home
 
 [project @ Github](http://github.com/sk1418/passwdmanager/)
 
-#Introduction
+# Introduction
 Passwd Manager is a cross-platform password management tool.
 
-#Features
+# Features
 As a password managment tool, Passwd Manager keeps as simple as possible. Currently Passwd Manager has following features:
 
 - Master password encrypted with MD5
@@ -19,7 +19,7 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 - auto-backup up to most recent x times of application starts. (x is configurable)
 - Simple enough huh? ;)
 
-#Screenshots
+# Screenshots
 
 ![mainWindow](https://raw.github.com/sk1418/sharedResources/master/passwdmanager/passwd1.png)
 
@@ -29,18 +29,18 @@ As a password managment tool, Passwd Manager keeps as simple as possible. Curren
 
 ![addAccount](https://raw.github.com/sk1418/sharedResources/master/passwdmanager/passwd4.png)
 
-#Requirement to run passwd manager:
+# Requirement to run passwd manager:
 
 - python 2.6.x
 - wxPython 2.8
 - pycrypto 2.6
 
-#Download
+# Download
 
 - Source code downloading: simple via github
 - All-in-one binary package for windows, please click[ here ](https://code.google.com/p/passwdmanager/downloads/list)
 
-#Installation (Linux)
+# Installation (Linux)
 
 	sudo python setup.py install
 
@@ -56,7 +56,7 @@ for git version:
 	yaourt -S passwdmanager-git
 
 
-#Upgrade
+# Upgrade
 
 **since version 1.2.0, upgrade the application by installation new version.**
 
@@ -71,17 +71,17 @@ using upgrade tool `<appHome>/passwdmanager/upgrade.py `to upgrade
 4. overwrite the data directory with your backup
 5. start the application, check the version number via Help->About
 
-#Tips
+# Tips
 - change the `data.path` in  `$HOME/.passwdManager/passwdManager.conf` (`$APP_HOME/conf/win.conf` on Windows) to some cloud storage (Dropbox for example) managed directory, your data file would be automatically synced. Useful when working on different computers.
 
-#Command to start the application
+# Command to start the application
 
 	pwmanager
 
 or find the launcher in menu 
 
 
-#DEFAULT MASTER PASSWORD
+# DEFAULT MASTER PASSWORD
 
 `"password"` (without the quotes)
 
